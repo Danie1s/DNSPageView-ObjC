@@ -47,7 +47,8 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style titles:(NSArray<NSString *> *)titles currentIndex:(NSInteger)currentIndex {
-    if ([super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         _style = style;
         _titles = titles;
         _currentIndex = currentIndex;
@@ -115,9 +116,9 @@
 
 - (void)setupLabelsLayout {
     __block CGFloat x = 0;
-    __block CGFloat y = 0;
+    CGFloat y = 0;
     __block CGFloat width = 0;
-    __block CGFloat height = self.frame.size.height;
+    CGFloat height = self.frame.size.height;
     
     NSInteger count = self.titles.count;
     [self.titleLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

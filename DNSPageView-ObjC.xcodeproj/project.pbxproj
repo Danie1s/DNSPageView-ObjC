@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */; };
+		E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */; };
+		E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD52021592D3100F63B9A /* DNSPageContentView.h */; };
+		E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD52121592D3100F63B9A /* DNSPageContentView.m */; };
 		E190FA482154984400F30C24 /* DNSPageView_ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA462154984400F30C24 /* DNSPageView_ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E190FA502154985A00F30C24 /* DNSPageStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA4E2154985A00F30C24 /* DNSPageStyle.h */; };
 		E190FA512154985A00F30C24 /* DNSPageStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA4F2154985A00F30C24 /* DNSPageStyle.m */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		E14FD52021592D3100F63B9A /* DNSPageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageContentView.h; sourceTree = "<group>"; };
+		E14FD52121592D3100F63B9A /* DNSPageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageContentView.m; sourceTree = "<group>"; };
 		E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DNSPageView_ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E190FA462154984400F30C24 /* DNSPageView_ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageView_ObjC.h; sourceTree = "<group>"; };
 		E190FA472154984400F30C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +92,10 @@
 				E190FA4F2154985A00F30C24 /* DNSPageStyle.m */,
 				E190FA6C21549B0700F30C24 /* DNSPageTitleView.h */,
 				E190FA6D21549B0700F30C24 /* DNSPageTitleView.m */,
+				E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */,
+				E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */,
+				E14FD52021592D3100F63B9A /* DNSPageContentView.h */,
+				E14FD52121592D3100F63B9A /* DNSPageContentView.m */,
 				E190FA472154984400F30C24 /* Info.plist */,
 			);
 			path = "DNSPageView-ObjC";
@@ -114,7 +126,9 @@
 			files = (
 				E190FA482154984400F30C24 /* DNSPageView_ObjC.h in Headers */,
 				E190FA502154985A00F30C24 /* DNSPageStyle.h in Headers */,
+				E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */,
 				E190FA6E21549B0700F30C24 /* DNSPageTitleView.h in Headers */,
+				E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +232,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E190FA6F21549B0700F30C24 /* DNSPageTitleView.m in Sources */,
+				E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */,
 				E190FA512154985A00F30C24 /* DNSPageStyle.m in Sources */,
+				E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

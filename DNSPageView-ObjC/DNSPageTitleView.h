@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)titleView:(DNSPageTitleView *)titleView currentIndex:(NSInteger)currentIndex;
 
-- (void)titleViewDidSelectedSameTitle;
-
-- (void)contentViewDidEndScroll;
+//- (void)titleViewDidSelectedSameTitle;
+//
+//- (void)contentViewDidEndScroll;
 
 @end
 

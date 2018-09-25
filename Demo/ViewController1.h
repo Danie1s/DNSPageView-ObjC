@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ViewController1.h
 //  Demo
 //
 //  Created by Daniels Lau on 2018/9/21.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController1 : UIViewController
 
 
 @end

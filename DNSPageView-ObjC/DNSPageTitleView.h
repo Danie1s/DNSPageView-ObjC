@@ -26,9 +26,9 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
 @interface DNSPageTitleView : UIView
 
-@property (nonatomic, weak) id delegate;
+@property (nullable, nonatomic, weak) id delegate;
 
-@property (nonatomic, copy) TitleClickHandler clickHandler;
+@property (nullable, nonatomic, copy) TitleClickHandler clickHandler;
 
 @property (nonatomic, assign) NSInteger currentIndex;
 
@@ -40,6 +40,11 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
 @property (nonatomic, strong) UIView *coverView;
 
+- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style titles:(NSArray<NSString *> *)titles currentIndex:(NSInteger)currentIndex;
+
+- (void)setupUI;
+
 @end
+
 
 NS_ASSUME_NONNULL_END

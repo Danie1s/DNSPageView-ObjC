@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DNSPageStyle : NSObject
 
-@property (nonatomic, assign, getter = isTitleScrollEnabled) BOOL titleScrollEnabled;
 
 @property (nonatomic, assign) CGFloat titleViewHeight;
 @property (nonatomic, strong) UIColor *titleColor;
@@ -20,14 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIFont *titleFont;
 @property (nonatomic, strong) UIColor *titleViewBackgroundColor;
 @property (nonatomic, assign) CGFloat titleMargin;
+@property (nullable, nonatomic, strong) UIColor *titleViewSelectedColor;
+
+@property (nonatomic, assign, getter = isTitleViewScrollEnabled) BOOL titleViewScrollEnabled;
 
 @property (nonatomic, assign, getter = isShowBottomLine) BOOL showBottomLine;
 @property (nonatomic, strong) UIColor *bottomLineColor;
 @property (nonatomic, assign) CGFloat bottomLineHeight;
+@property (nonatomic, assign) CGFloat bottomLineRadius;
 
 
-@property (nonatomic, assign, getter = isScaleEnabled) BOOL scaleEnabled;
-@property (nonatomic, assign) CGFloat maximumScaleFactor;
+@property (nonatomic, assign, getter = isTitleScaleEnabled) BOOL titleScaleEnabled;
+@property (nonatomic, assign) CGFloat titleMaximumScaleFactor;
 
 @property (nonatomic, assign, getter = isShowCoverView) BOOL showCoverView;
 @property (nonatomic, strong) UIColor *coverViewBackgroundColor;

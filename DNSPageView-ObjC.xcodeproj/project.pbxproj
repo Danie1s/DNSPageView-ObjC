@@ -12,17 +12,50 @@
 		E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD52021592D3100F63B9A /* DNSPageContentView.h */; };
 		E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD52121592D3100F63B9A /* DNSPageContentView.m */; };
 		E190FA482154984400F30C24 /* DNSPageView_ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA462154984400F30C24 /* DNSPageView_ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E190FA502154985A00F30C24 /* DNSPageStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA4E2154985A00F30C24 /* DNSPageStyle.h */; };
-		E190FA512154985A00F30C24 /* DNSPageStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA4F2154985A00F30C24 /* DNSPageStyle.m */; };
 		E190FA5A21549AAC00F30C24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA5921549AAC00F30C24 /* AppDelegate.m */; };
-		E190FA5D21549AAC00F30C24 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA5C21549AAC00F30C24 /* ViewController.m */; };
+		E190FA5D21549AAC00F30C24 /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA5C21549AAC00F30C24 /* ViewController1.m */; };
 		E190FA6021549AAD00F30C24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E190FA5E21549AAD00F30C24 /* Main.storyboard */; };
 		E190FA6221549AAE00F30C24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E190FA6121549AAE00F30C24 /* Assets.xcassets */; };
 		E190FA6521549AAE00F30C24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E190FA6321549AAE00F30C24 /* LaunchScreen.storyboard */; };
 		E190FA6821549AAE00F30C24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA6721549AAE00F30C24 /* main.m */; };
 		E190FA6E21549B0700F30C24 /* DNSPageTitleView.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA6C21549B0700F30C24 /* DNSPageTitleView.h */; };
 		E190FA6F21549B0700F30C24 /* DNSPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA6D21549B0700F30C24 /* DNSPageTitleView.m */; };
+		E1D7E0D0215A2150009565BE /* DNSPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D7E0CE215A2150009565BE /* DNSPageView.h */; };
+		E1D7E0D1215A2150009565BE /* DNSPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0CF215A2150009565BE /* DNSPageView.m */; };
+		E1D7E0D4215A2D25009565BE /* DNSPageViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D7E0D2215A2D25009565BE /* DNSPageViewManager.h */; };
+		E1D7E0D5215A2D25009565BE /* DNSPageViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0D3215A2D25009565BE /* DNSPageViewManager.m */; };
+		E1D7E0D8215A3094009565BE /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0D7215A3094009565BE /* ViewController2.m */; };
+		E1D7E0DB215A30A0009565BE /* ViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0DA215A30A0009565BE /* ViewController3.m */; };
+		E1D7E0DE215A30AD009565BE /* ViewController4.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0DD215A30AD009565BE /* ViewController4.m */; };
+		E1D7E0E6215A406C009565BE /* DNSPageStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D7E0E4215A406C009565BE /* DNSPageStyle.m */; };
+		E1D7E0E7215A406C009565BE /* DNSPageStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D7E0E5215A406C009565BE /* DNSPageStyle.h */; };
+		E1D7E0E8215A40A4009565BE /* DNSPageView_ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */; };
+		E1D7E0E9215A40A4009565BE /* DNSPageView_ObjC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1D7E0EA215A40A4009565BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E190FA3A2154984300F30C24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E190FA422154984400F30C24;
+			remoteInfo = "DNSPageView-ObjC";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1D7E0EC215A40A4009565BE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E1D7E0E9215A40A4009565BE /* DNSPageView_ObjC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -32,13 +65,11 @@
 		E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DNSPageView_ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E190FA462154984400F30C24 /* DNSPageView_ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageView_ObjC.h; sourceTree = "<group>"; };
 		E190FA472154984400F30C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E190FA4E2154985A00F30C24 /* DNSPageStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageStyle.h; sourceTree = "<group>"; };
-		E190FA4F2154985A00F30C24 /* DNSPageStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageStyle.m; sourceTree = "<group>"; };
 		E190FA5621549AAC00F30C24 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E190FA5821549AAC00F30C24 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E190FA5921549AAC00F30C24 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E190FA5B21549AAC00F30C24 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E190FA5C21549AAC00F30C24 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E190FA5B21549AAC00F30C24 /* ViewController1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController1.h; sourceTree = "<group>"; };
+		E190FA5C21549AAC00F30C24 /* ViewController1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController1.m; sourceTree = "<group>"; };
 		E190FA5F21549AAD00F30C24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E190FA6121549AAE00F30C24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E190FA6421549AAE00F30C24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,6 +77,18 @@
 		E190FA6721549AAE00F30C24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E190FA6C21549B0700F30C24 /* DNSPageTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageTitleView.h; sourceTree = "<group>"; };
 		E190FA6D21549B0700F30C24 /* DNSPageTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageTitleView.m; sourceTree = "<group>"; };
+		E1D7E0CE215A2150009565BE /* DNSPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageView.h; sourceTree = "<group>"; };
+		E1D7E0CF215A2150009565BE /* DNSPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageView.m; sourceTree = "<group>"; };
+		E1D7E0D2215A2D25009565BE /* DNSPageViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageViewManager.h; sourceTree = "<group>"; };
+		E1D7E0D3215A2D25009565BE /* DNSPageViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageViewManager.m; sourceTree = "<group>"; };
+		E1D7E0D6215A3094009565BE /* ViewController2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
+		E1D7E0D7215A3094009565BE /* ViewController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
+		E1D7E0D9215A30A0009565BE /* ViewController3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController3.h; sourceTree = "<group>"; };
+		E1D7E0DA215A30A0009565BE /* ViewController3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController3.m; sourceTree = "<group>"; };
+		E1D7E0DC215A30AD009565BE /* ViewController4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController4.h; sourceTree = "<group>"; };
+		E1D7E0DD215A30AD009565BE /* ViewController4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController4.m; sourceTree = "<group>"; };
+		E1D7E0E4215A406C009565BE /* DNSPageStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSPageStyle.m; sourceTree = "<group>"; };
+		E1D7E0E5215A406C009565BE /* DNSPageStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSPageStyle.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D7E0E8215A40A4009565BE /* DNSPageView_ObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,14 +132,18 @@
 			isa = PBXGroup;
 			children = (
 				E190FA462154984400F30C24 /* DNSPageView_ObjC.h */,
-				E190FA4E2154985A00F30C24 /* DNSPageStyle.h */,
-				E190FA4F2154985A00F30C24 /* DNSPageStyle.m */,
+				E1D7E0E5215A406C009565BE /* DNSPageStyle.h */,
+				E1D7E0E4215A406C009565BE /* DNSPageStyle.m */,
 				E190FA6C21549B0700F30C24 /* DNSPageTitleView.h */,
 				E190FA6D21549B0700F30C24 /* DNSPageTitleView.m */,
 				E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */,
 				E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */,
 				E14FD52021592D3100F63B9A /* DNSPageContentView.h */,
 				E14FD52121592D3100F63B9A /* DNSPageContentView.m */,
+				E1D7E0CE215A2150009565BE /* DNSPageView.h */,
+				E1D7E0CF215A2150009565BE /* DNSPageView.m */,
+				E1D7E0D2215A2D25009565BE /* DNSPageViewManager.h */,
+				E1D7E0D3215A2D25009565BE /* DNSPageViewManager.m */,
 				E190FA472154984400F30C24 /* Info.plist */,
 			);
 			path = "DNSPageView-ObjC";
@@ -106,8 +154,14 @@
 			children = (
 				E190FA5821549AAC00F30C24 /* AppDelegate.h */,
 				E190FA5921549AAC00F30C24 /* AppDelegate.m */,
-				E190FA5B21549AAC00F30C24 /* ViewController.h */,
-				E190FA5C21549AAC00F30C24 /* ViewController.m */,
+				E190FA5B21549AAC00F30C24 /* ViewController1.h */,
+				E190FA5C21549AAC00F30C24 /* ViewController1.m */,
+				E1D7E0D6215A3094009565BE /* ViewController2.h */,
+				E1D7E0D7215A3094009565BE /* ViewController2.m */,
+				E1D7E0D9215A30A0009565BE /* ViewController3.h */,
+				E1D7E0DA215A30A0009565BE /* ViewController3.m */,
+				E1D7E0DC215A30AD009565BE /* ViewController4.h */,
+				E1D7E0DD215A30AD009565BE /* ViewController4.m */,
 				E190FA5E21549AAD00F30C24 /* Main.storyboard */,
 				E190FA6121549AAE00F30C24 /* Assets.xcassets */,
 				E190FA6321549AAE00F30C24 /* LaunchScreen.storyboard */,
@@ -125,10 +179,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E190FA482154984400F30C24 /* DNSPageView_ObjC.h in Headers */,
-				E190FA502154985A00F30C24 /* DNSPageStyle.h in Headers */,
+				E1D7E0D0215A2150009565BE /* DNSPageView.h in Headers */,
 				E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */,
 				E190FA6E21549B0700F30C24 /* DNSPageTitleView.h in Headers */,
+				E1D7E0E7215A406C009565BE /* DNSPageStyle.h in Headers */,
 				E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */,
+				E1D7E0D4215A2D25009565BE /* DNSPageViewManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,10 +216,12 @@
 				E190FA5221549AAC00F30C24 /* Sources */,
 				E190FA5321549AAC00F30C24 /* Frameworks */,
 				E190FA5421549AAC00F30C24 /* Resources */,
+				E1D7E0EC215A40A4009565BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E1D7E0EB215A40A4009565BE /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -231,10 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D7E0E6215A406C009565BE /* DNSPageStyle.m in Sources */,
 				E190FA6F21549B0700F30C24 /* DNSPageTitleView.m in Sources */,
+				E1D7E0D1215A2150009565BE /* DNSPageView.m in Sources */,
 				E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */,
-				E190FA512154985A00F30C24 /* DNSPageStyle.m in Sources */,
 				E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */,
+				E1D7E0D5215A2D25009565BE /* DNSPageViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,13 +302,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E190FA5D21549AAC00F30C24 /* ViewController.m in Sources */,
+				E190FA5D21549AAC00F30C24 /* ViewController1.m in Sources */,
+				E1D7E0D8215A3094009565BE /* ViewController2.m in Sources */,
 				E190FA6821549AAE00F30C24 /* main.m in Sources */,
 				E190FA5A21549AAC00F30C24 /* AppDelegate.m in Sources */,
+				E1D7E0DB215A30A0009565BE /* ViewController3.m in Sources */,
+				E1D7E0DE215A30AD009565BE /* ViewController4.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1D7E0EB215A40A4009565BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E190FA422154984400F30C24 /* DNSPageView-ObjC */;
+			targetProxy = E1D7E0EA215A40A4009565BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E190FA5E21549AAD00F30C24 /* Main.storyboard */ = {
@@ -400,6 +471,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "DNSPageView-ObjC/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -424,6 +496,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "DNSPageView-ObjC/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,9 +513,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 92B3UWZXNB;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,9 +532,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 92B3UWZXNB;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

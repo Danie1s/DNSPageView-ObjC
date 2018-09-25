@@ -98,7 +98,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.forbidDelegate = NO;
-    self.startIndex = scrollView.contentOffset.x;
+    self.startOffsetX = scrollView.contentOffset.x;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DNSPageContentView : UIView
 
-@property (nonatomic, weak) id delegate;
+@property (nullable, nonatomic, weak) id delegate;
 
 @property (nonatomic, strong) DNSPageStyle *style;
 
@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger startIndex;
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
+
+- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers startIndex:(NSInteger)startIndex;
+
+- (void)setupUI;
 
 @end
 

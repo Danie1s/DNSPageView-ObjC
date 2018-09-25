@@ -7,8 +7,9 @@
 //
 
 #import "DNSPageTitleView.h"
+#import "DNSPageContentView.h"
 
-@interface DNSPageTitleView ()
+@interface DNSPageTitleView () <DNSPageContentViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *bottomLine;
@@ -52,6 +53,7 @@
         _style = style;
         _titles = titles;
         _currentIndex = currentIndex;
+        [self setupUI];
     }
     return self;
 }
@@ -71,21 +73,34 @@
     [super layoutSubviews];
     self.scrollView.frame = self.bounds;
     
+    [self setupLabelsLayout];
+    [self setupBottomLine];
+    [self setupCoverViewLayout];
+    
 }
 
 - (void)setupUI {
     [self addSubview:self.scrollView];
     
     self.scrollView.backgroundColor = self.style.titleViewBackgroundColor;
+    
+    [self setupTitleLabels];
+    
+    [self setupBottomLine];
+    
+    [self setupCoverView];
 }
 
 - (void)setupTitleLabels {
-    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *titleLabels = [NSMutableArray array];
     [self.titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UILabel *label = [[UILabel alloc] init];
         label.tag = idx;
         label.text = obj;
         label.textColor = idx == self.currentIndex ? self.style.titleSelectedColor : self.style.titleColor;
+        if (self.style.titleViewSelectedColor) {
+            label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : self.style.titleViewBackgroundColor;
+        }
         label.textAlignment = NSTextAlignmentCenter;
         label.font = self.style.titleFont;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleLabelClick:)];
@@ -93,9 +108,10 @@
         label.userInteractionEnabled = YES;
         
         [self.scrollView addSubview:label];
-        [array addObject:label];
+        [titleLabels addObject:label];
         
     }];
+    self.titleLabels = titleLabels;
 }
 
 
@@ -122,7 +138,7 @@
     
     NSInteger count = self.titles.count;
     [self.titleLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (self.style.isTitleScrollEnabled) {
+        if (self.style.isTitleViewScrollEnabled) {
             width = [self.titles[idx] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.font} context:nil].size.width;
             x = idx == 0 ? self.style.titleMargin * 0.5 : (CGRectGetMaxX(self.titleLabels[idx - 1].frame) + self.style.titleMargin);
         } else {
@@ -132,11 +148,11 @@
         obj.frame = CGRectMake(x, y, width, height);
     }];
     
-    if (self.style.isScaleEnabled) {
-        [self.titleLabels firstObject].transform = CGAffineTransformMakeScale(self.style.maximumScaleFactor, self.style.maximumScaleFactor);
+    if (self.style.isTitleScaleEnabled) {
+        [self.titleLabels firstObject].transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
     }
     
-    if (self.style.isTitleScrollEnabled) {
+    if (self.style.isTitleViewScrollEnabled) {
         UILabel *label = [self.titleLabels lastObject];
         if (label) {
             CGSize size = self.scrollView.contentSize;
@@ -155,7 +171,7 @@
     CGFloat height = self.style.coverViewHeight;
     CGFloat x = label.frame.origin.x;
     CGFloat y = (label.frame.size.height - height) * 0.5;
-    if (self.style.isTitleScrollEnabled) {
+    if (self.style.isTitleViewScrollEnabled) {
         x -= self.style.coverMargin;
         width += self.style.coverMargin * 2;
     }
@@ -172,6 +188,7 @@
     frame.origin.y = self.bounds.size.height - self.style.bottomLineHeight;
     frame.size.width = label.frame.size.width;
     frame.size.height = self.style.bottomLineHeight;
+    self.bottomLine.frame = frame;
 }
 
 - (void)titleLabelClick:(UITapGestureRecognizer *)tap {
@@ -196,10 +213,10 @@
         [self.delegate titleView:self currentIndex:self.currentIndex];
     }
     
-    if (self.style.isScaleEnabled) {
+    if (self.style.isTitleScaleEnabled) {
         [UIView animateWithDuration:0.25 animations:^{
             sourceLabel.transform = CGAffineTransformIdentity;
-            targetLabel.transform = CGAffineTransformMakeScale(self.style.maximumScaleFactor, self.style.maximumScaleFactor);
+            targetLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
         }];
     }
     
@@ -213,8 +230,8 @@
     }
     
     if (self.style.isShowCoverView) {
-        CGFloat x = self.style.isTitleScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
-        CGFloat width = self.style.isTitleScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;
+        CGFloat x = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
+        CGFloat width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.coverView.frame;
             frame.origin.x = x;
@@ -222,10 +239,15 @@
             self.coverView.frame = frame;
         }];
     }
+    
+    if (self.style.titleViewSelectedColor) {
+        sourceLabel.backgroundColor = self.style.titleViewBackgroundColor;
+        targetLabel.backgroundColor = self.style.titleViewSelectedColor;
+    }
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {
-    if (self.style.isTitleScrollEnabled) {
+    if (self.style.isTitleViewScrollEnabled) {
         CGFloat offsetX = targetLabel.center.x - self.bounds.size.width * 0.5;
         if (offsetX < 0) {
             offsetX = 0;
@@ -239,6 +261,79 @@
 
 
 #pragma mark - DNSPageContentViewDelegate
+- (void)contentView:(DNSPageContentView *)contentView inIndex:(NSInteger)inIndex {
+    UILabel *sourceLabel = self.titleLabels[self.currentIndex];
+    UILabel *targetLabel = self.titleLabels[inIndex];
+    
+    if (self.style.titleViewSelectedColor) {
+        sourceLabel.backgroundColor = self.style.titleViewBackgroundColor;
+        targetLabel.backgroundColor = self.style.titleViewSelectedColor;
+    }
+    
+    self.currentIndex = inIndex;
+    
+    [self adjustLabelPosition:targetLabel];
+    
+    [self fixUI:targetLabel];
+}
 
+- (void)contentView:(DNSPageContentView *)contentView sourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress {
+    if (sourceIndex > self.titleLabels.count - 1 || sourceIndex < 0) {
+        return;
+    }
+    if (targetIndex > self.titleLabels.count - 1 || targetIndex < 0) {
+        return;
+    }
+    UILabel *sourceLabel = self.titleLabels[sourceIndex];
+    UILabel *targetLabel = self.titleLabels[targetIndex];
+    
+//    sourceLabel.textColor =
+//    targetLabel.textColor =
+    if (self.style.isTitleScaleEnabled) {
+        CGFloat deltaScale = self.style.titleMaximumScaleFactor - 1.0;
+        sourceLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor - progress * deltaScale, self.style.titleMaximumScaleFactor - progress * deltaScale);
+    }
+    
+    if (self.style.isShowBottomLine) {
+        CGFloat deltaX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x;
+        CGFloat deltaW = targetLabel.frame.size.width - sourceLabel.frame.size.width;
+        CGRect frame = self.bottomLine.frame;
+        frame.origin.x = sourceLabel.frame.origin.x + progress * deltaX;
+        frame.size.width = sourceLabel.frame.size.width + progress * deltaW;
+        self.bottomLine.frame = frame;
+    }
+    
+    if (self.style.isShowCoverView) {
+        CGFloat deltaX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x;
+        CGFloat deltaW = targetLabel.frame.size.width - sourceLabel.frame.size.width;
+        CGRect frame = self.coverView.frame;
+        frame.size.width = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.size.width + 2 * self.style.coverMargin + deltaW * progress) : (sourceLabel.frame.size.width + deltaW * progress);
+        frame.origin.x = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.origin.x - self.style.coverMargin + deltaX * progress) : (sourceLabel.frame.origin.x + deltaX * progress);
+        self.coverView.frame = frame;
+    }
+}
+
+
+- (void)fixUI:(UILabel *)targetLabel {
+    [UIView animateWithDuration:0.05 animations:^{
+        targetLabel.textColor = self.style.titleViewSelectedColor;
+        if (self.style.isTitleScaleEnabled) {
+            targetLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
+        }
+        if (self.style.isShowBottomLine) {
+            CGRect frame = self.bottomLine.frame;
+            frame.origin.x = targetLabel.frame.origin.x;
+            frame.size.width = targetLabel.frame.size.width;
+            self.bottomLine.frame = frame;
+        }
+        
+        if (self.style.isShowCoverView) {
+            CGRect frame = self.coverView.frame;
+            frame.size.width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + 2 * self.style.coverMargin) : targetLabel.frame.size.width;
+            frame.origin.x = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
+            self.coverView.frame = frame;
+        }
+    }];
+}
 
 @end

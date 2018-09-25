@@ -14,6 +14,8 @@ FOUNDATION_EXPORT double DNSPageView_ObjCVersionNumber;
 //! Project version string for DNSPageView_ObjC.
 FOUNDATION_EXPORT const unsigned char DNSPageView_ObjCVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <DNSPageView_ObjC/PublicHeader.h>
-
-
+#import "DNSPageStyle.h"
+#import "DNSPageTitleView.h"
+#import "DNSPageContentView.h"
+#import "DNSPageView.h"
+#import "DNSPageViewManager.h"

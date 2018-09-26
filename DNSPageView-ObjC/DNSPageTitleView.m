@@ -5,21 +5,58 @@
 //  Created by Daniels Lau on 2018/9/21.
 //  Copyright © 2018年 Daniels. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 #import "DNSPageTitleView.h"
 #import "DNSPageContentView.h"
+#import "UIColor+RGB.h"
 
-@interface DNSPageTitleView () <DNSPageContentViewDelegate>
+
+
+@interface DNSPageTitleView ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *bottomLine;
+@property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) NSArray<UILabel *> *titleLabels;
+
 @end
 
 
 @implementation DNSPageTitleView
 
+- (RGBColorSpace)normalRGB {
+    return [self.style.titleColor getRGBColorSpace];
+}
 
+- (RGBColorSpace)selectRGB {
+    return [self.style.titleSelectedColor getRGBColorSpace];
+}
+
+- (RGBColorSpace)deltaRGB {
+    RGBColorSpace rgb;
+    rgb.red = self.selectRGB.red - self.normalRGB.red;
+    rgb.green = self.selectRGB.green - self.normalRGB.green;
+    rgb.blue = self.selectRGB.blue - self.normalRGB.blue;
+    return rgb;
+}
 
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
@@ -64,10 +101,6 @@
     self.titles = [NSArray array];
 }
 
-//- (void)initProperties {
-//    _currentIndex = 0;
-//
-//}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -98,9 +131,7 @@
         label.tag = idx;
         label.text = obj;
         label.textColor = idx == self.currentIndex ? self.style.titleSelectedColor : self.style.titleColor;
-        if (self.style.titleViewSelectedColor) {
-            label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : self.style.titleViewBackgroundColor;
-        }
+        label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : self.style.titleViewBackgroundColor;
         label.textAlignment = NSTextAlignmentCenter;
         label.font = self.style.titleFont;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleLabelClick:)];
@@ -193,10 +224,15 @@
 
 - (void)titleLabelClick:(UITapGestureRecognizer *)tap {
     UILabel *targetLabel = (UILabel *)tap.view;
-    self.clickHandler(self, targetLabel.tag);
+    if (self.clickHandler) {
+        self.clickHandler(self, targetLabel.tag);
+    }
     
     if (targetLabel.tag == self.currentIndex) {
-        // 重复点击事件
+        
+        if ([self.delegate respondsToSelector:@selector(titleViewDidSelectedSameTitle)]) {
+            [self.delegate titleViewDidSelectedSameTitle];
+        }
         return;
     }
     
@@ -240,10 +276,8 @@
         }];
     }
     
-    if (self.style.titleViewSelectedColor) {
-        sourceLabel.backgroundColor = self.style.titleViewBackgroundColor;
-        targetLabel.backgroundColor = self.style.titleViewSelectedColor;
-    }
+    sourceLabel.backgroundColor = nil;
+    targetLabel.backgroundColor = self.style.titleViewSelectedColor;
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {
@@ -265,10 +299,8 @@
     UILabel *sourceLabel = self.titleLabels[self.currentIndex];
     UILabel *targetLabel = self.titleLabels[inIndex];
     
-    if (self.style.titleViewSelectedColor) {
-        sourceLabel.backgroundColor = self.style.titleViewBackgroundColor;
-        targetLabel.backgroundColor = self.style.titleViewSelectedColor;
-    }
+    sourceLabel.backgroundColor = nil;
+    targetLabel.backgroundColor = self.style.titleViewSelectedColor;
     
     self.currentIndex = inIndex;
     
@@ -286,12 +318,13 @@
     }
     UILabel *sourceLabel = self.titleLabels[sourceIndex];
     UILabel *targetLabel = self.titleLabels[targetIndex];
+    sourceLabel.textColor = [UIColor colorWithRed:(self.selectRGB.red - progress * self.deltaRGB.red) / 255.0 green:(self.selectRGB.green - progress * self.deltaRGB.green) / 255.0 blue:(self.selectRGB.blue - progress * self.deltaRGB.blue) / 255.0 alpha:1.0];
+    targetLabel.textColor = [UIColor colorWithRed:(self.normalRGB.red + progress * self.deltaRGB.red) / 255.0 green:(self.normalRGB.green + progress * self.deltaRGB.green) / 255.0 blue:(self.normalRGB.blue + progress * self.deltaRGB.blue) / 255.0 alpha:1.0];
     
-//    sourceLabel.textColor =
-//    targetLabel.textColor =
     if (self.style.isTitleScaleEnabled) {
         CGFloat deltaScale = self.style.titleMaximumScaleFactor - 1.0;
         sourceLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor - progress * deltaScale, self.style.titleMaximumScaleFactor - progress * deltaScale);
+        targetLabel.transform = CGAffineTransformMakeScale(1.0 + progress * deltaScale, 1.0 + progress * deltaScale);
     }
     
     if (self.style.isShowBottomLine) {
@@ -316,7 +349,8 @@
 
 - (void)fixUI:(UILabel *)targetLabel {
     [UIView animateWithDuration:0.05 animations:^{
-        targetLabel.textColor = self.style.titleViewSelectedColor;
+        targetLabel.textColor = self.style.titleSelectedColor;
+        
         if (self.style.isTitleScaleEnabled) {
             targetLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
         }

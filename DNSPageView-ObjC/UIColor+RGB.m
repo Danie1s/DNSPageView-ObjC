@@ -1,8 +1,8 @@
 //
-//  DNSPageCollectionViewFlowLayout.m
+//  UIColor+RGB.m
 //  DNSPageView-ObjC
 //
-//  Created by Daniels on 2018/9/24.
+//  Created by Daniels Lau on 2018/9/26.
 //  Copyright © 2018年 Daniels. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,15 +24,20 @@
 //  THE SOFTWARE.
 //
 
-#import "DNSPageCollectionViewFlowLayout.h"
+#import "UIColor+RGB.h"
 
-@implementation DNSPageCollectionViewFlowLayout
+@implementation UIColor (RGB)
 
-- (void)prepareLayout {
-    [super prepareLayout];
-    if (self.offset) {
-        self.collectionView.contentOffset = CGPointMake(self.offset, 0);
-    }
+- (RGBColorSpace)getRGBColorSpace {
+    CGFloat red = 0;
+    CGFloat green = 0;
+    CGFloat blue = 0;
+    [self getRed:&red green:&green blue:&blue alpha:nil];
+    RGBColorSpace rgb;
+    rgb.red = red * 255;
+    rgb.green = green * 255;
+    rgb.blue = blue * 255;
+    return rgb;
 }
 
 @end

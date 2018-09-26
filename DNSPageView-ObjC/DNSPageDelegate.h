@@ -1,8 +1,8 @@
 //
-//  DNSPageCollectionViewFlowLayout.m
+//  DNSPageDelegate.h
 //  DNSPageView-ObjC
 //
-//  Created by Daniels on 2018/9/24.
+//  Created by Daniels Lau on 2018/9/26.
 //  Copyright © 2018年 Daniels. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,15 +24,50 @@
 //  THE SOFTWARE.
 //
 
-#import "DNSPageCollectionViewFlowLayout.h"
+#import <Foundation/Foundation.h>
 
-@implementation DNSPageCollectionViewFlowLayout
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)prepareLayout {
-    [super prepareLayout];
-    if (self.offset) {
-        self.collectionView.contentOffset = CGPointMake(self.offset, 0);
-    }
-}
+@class DNSPageTitleView, DNSPageContentView;
+
+@protocol DNSPageTitleViewDelegate <NSObject>
+
+- (void)titleView:(DNSPageTitleView *)titleView currentIndex:(NSInteger)currentIndex;
+
+- (void)titleViewDidSelectedSameTitle;
 
 @end
+
+
+@protocol DNSPageContentViewDelegate <NSObject>
+
+- (void)contentView:(DNSPageContentView *)contentView inIndex:(NSInteger)inIndex;
+
+- (void)contentView:(DNSPageContentView *)contentView sourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress;
+
+@end
+
+
+/**
+ 如果contentView中的view需要实现某些刷新的方法，请让对应的childViewController遵守这个协议
+ */
+@protocol DNSPageReloaderDelegate <NSObject>
+@optional
+
+
+/**
+ 如果需要双击标题刷新或者作其他处理，请实现这个方法
+ */
+- (void)titleViewDidSelectedSameTitle;
+
+
+/**
+ 如果pageContentView滚动到下一页停下来需要刷新或者作其他处理，请实现这个方法
+ */
+- (void)contentViewDidEndScroll;
+
+@end
+
+
+
+NS_ASSUME_NONNULL_END

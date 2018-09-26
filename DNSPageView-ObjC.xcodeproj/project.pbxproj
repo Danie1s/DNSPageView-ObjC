@@ -21,6 +21,7 @@
 		E100DDC0215B6DAF008EE5CD /* UIColor+RGB.h in Headers */ = {isa = PBXBuildFile; fileRef = E100DDBE215B6DAF008EE5CD /* UIColor+RGB.h */; };
 		E100DDC1215B6DAF008EE5CD /* UIColor+RGB.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDBF215B6DAF008EE5CD /* UIColor+RGB.m */; };
 		E100DDC3215B903A008EE5CD /* DNSPageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E100DDC2215B903A008EE5CD /* DNSPageDelegate.h */; };
+		E100DDC6215B9440008EE5CD /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDC5215B9440008EE5CD /* UIColor+Random.m */; };
 		E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */; };
 		E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */; };
 		E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD52021592D3100F63B9A /* DNSPageContentView.h */; };
@@ -103,6 +104,8 @@
 		E100DDBE215B6DAF008EE5CD /* UIColor+RGB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGB.h"; sourceTree = "<group>"; };
 		E100DDBF215B6DAF008EE5CD /* UIColor+RGB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGB.m"; sourceTree = "<group>"; };
 		E100DDC2215B903A008EE5CD /* DNSPageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageDelegate.h; sourceTree = "<group>"; };
+		E100DDC4215B9440008EE5CD /* UIColor+Random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
+		E100DDC5215B9440008EE5CD /* UIColor+Random.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
 		E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		E14FD52021592D3100F63B9A /* DNSPageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageContentView.h; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 		E190FA5721549AAC00F30C24 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				E100DDC4215B9440008EE5CD /* UIColor+Random.h */,
+				E100DDC5215B9440008EE5CD /* UIColor+Random.m */,
 				E190FA5821549AAC00F30C24 /* AppDelegate.h */,
 				E190FA5921549AAC00F30C24 /* AppDelegate.m */,
 				E190FA5B21549AAC00F30C24 /* ViewController1.h */,
@@ -401,6 +406,7 @@
 				E100DDB9215B2C9B008EE5CD /* View+MASAdditions.m in Sources */,
 				E100DDB1215B2C9B008EE5CD /* MASCompositeConstraint.m in Sources */,
 				E100DDB8215B2C9B008EE5CD /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				E100DDC6215B9440008EE5CD /* UIColor+Random.m in Sources */,
 				E100DDB3215B2C9B008EE5CD /* MASConstraintMaker.m in Sources */,
 				E190FA5A21549AAC00F30C24 /* AppDelegate.m in Sources */,
 				E100DDBD215B457B008EE5CD /* ContentViewController.m in Sources */,

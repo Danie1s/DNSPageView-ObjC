@@ -9,6 +9,7 @@
 #import "ViewController1.h"
 #import "ContentViewController.h"
 #import <DNSPageView_ObjC/DNSPageView_ObjC.h>
+#import "UIColor+Random.h"
 
 @interface ViewController1 ()
 
@@ -32,8 +33,7 @@
     NSMutableArray *childViewControllers = [NSMutableArray array];
     for (NSString *title in titles) {
         ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
-        controller.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0];
-        [childViewControllers addObject:controller];
+        controller.view.backgroundColor = [UIColor randomColor];
     }
     
     CGFloat y = [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;

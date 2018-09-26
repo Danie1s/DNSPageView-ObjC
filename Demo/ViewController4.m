@@ -9,6 +9,7 @@
 #import "ViewController4.h"
 #import <DNSPageView_ObjC/DNSPageView_ObjC.h>
 #import "ContentViewController.h"
+#import "UIColor+Random.h"
 
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
@@ -47,7 +48,7 @@
         NSMutableArray *childViewControllers = [NSMutableArray array];
         for (NSString *title in self.titles) {
             ContentViewController *controller = [[ContentViewController alloc] init];
-            controller.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0];
+            controller.view.backgroundColor = [UIColor randomColor];
             [childViewControllers addObject:controller];
         }
         _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:self.titles childViewControllers:childViewControllers startIndex:0];

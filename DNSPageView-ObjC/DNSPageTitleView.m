@@ -107,7 +107,7 @@
     self.scrollView.frame = self.bounds;
     
     [self setupLabelsLayout];
-    [self setupBottomLine];
+    [self setupBottomLineLayout];
     [self setupCoverViewLayout];
     
 }
@@ -131,7 +131,7 @@
         label.tag = idx;
         label.text = obj;
         label.textColor = idx == self.currentIndex ? self.style.titleSelectedColor : self.style.titleColor;
-        label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : self.style.titleViewBackgroundColor;
+        label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : nil;
         label.textAlignment = NSTextAlignmentCenter;
         label.font = self.style.titleFont;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleLabelClick:)];

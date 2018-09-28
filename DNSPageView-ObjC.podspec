@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DNSPageView-ObjC'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'DNSPageView-ObjC is a library for pageView'
   s.description      = <<-DESC
                        DNSPageView-ObjC is a library for pageView.
@@ -13,8 +13,6 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/Danie1s/DNSPageView-ObjC.git', :tag => s.version }
 
   s.ios.deployment_target = '8.0'
-
-  s.public_header_files = 'DNSPageView-ObjC/DNSPageView_ObjC.h'
   s.framework    = 'UIKit'
   s.source_files = 'DNSPageView-ObjC/*.{h,m}'
   s.requires_arc = true

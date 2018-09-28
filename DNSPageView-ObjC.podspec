@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.public_header_files = 'DNSPageView-ObjC/DNSPageView_ObjC.h'
+  s.framework    = 'UIKit'
   s.source_files = 'DNSPageView-ObjC/*.{h,m}'
   s.requires_arc = true
 

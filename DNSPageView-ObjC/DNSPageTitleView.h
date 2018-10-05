@@ -56,6 +56,14 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
 - (void)setupUI;
 
+
+/**
+ 通过代码实现点了某个位置的titleView
+
+ @param index 需要点击的titleView的下标
+ */
+- (void)selectedTitleInIndex:(NSInteger)index;
+
 @end
 
 

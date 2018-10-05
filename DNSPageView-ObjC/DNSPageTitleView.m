@@ -222,40 +222,42 @@
     self.bottomLine.frame = frame;
 }
 
-- (void)titleLabelClick:(UITapGestureRecognizer *)tap {
-    UILabel *targetLabel = (UILabel *)tap.view;
+
+- (void)selectedTitleInIndex:(NSInteger)index {
     if (self.clickHandler) {
-        self.clickHandler(self, targetLabel.tag);
+        self.clickHandler(self, index);
     }
-    
-    if (targetLabel.tag == self.currentIndex) {
-        
+
+    if (index == self.currentIndex) {
+
         if ([self.delegate respondsToSelector:@selector(titleViewDidSelectedSameTitle)]) {
             [self.delegate titleViewDidSelectedSameTitle];
         }
         return;
     }
-    
+
     UILabel *sourceLabel = self.titleLabels[self.currentIndex];
-    
+    UILabel *targetLabel = self.titleLabels[index];
+
+
     sourceLabel.textColor = self.style.titleColor;
     targetLabel.textColor = self.style.titleSelectedColor;
-    
-    self.currentIndex = targetLabel.tag;
-    
+
+    self.currentIndex = index;
+
     [self adjustLabelPosition:targetLabel];
-    
+
     if ([self.delegate respondsToSelector:@selector(titleView:currentIndex:)]) {
         [self.delegate titleView:self currentIndex:self.currentIndex];
     }
-    
+
     if (self.style.isTitleScaleEnabled) {
         [UIView animateWithDuration:0.25 animations:^{
             sourceLabel.transform = CGAffineTransformIdentity;
             targetLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
         }];
     }
-    
+
     if (self.style.isShowBottomLine) {
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.bottomLine.frame;
@@ -264,7 +266,7 @@
             self.bottomLine.frame = frame;
         }];
     }
-    
+
     if (self.style.isShowCoverView) {
         CGFloat x = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
         CGFloat width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;
@@ -275,9 +277,15 @@
             self.coverView.frame = frame;
         }];
     }
-    
+
     sourceLabel.backgroundColor = nil;
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
+}
+
+
+- (void)titleLabelClick:(UITapGestureRecognizer *)tap {
+    NSInteger targetIndex = tap.view.tag;
+    [self selectedTitleInIndex:targetIndex];
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {

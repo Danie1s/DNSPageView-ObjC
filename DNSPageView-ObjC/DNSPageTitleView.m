@@ -131,7 +131,7 @@
         label.tag = idx;
         label.text = obj;
         label.textColor = idx == self.currentIndex ? self.style.titleSelectedColor : self.style.titleColor;
-        label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : nil;
+        label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : [UIColor clearColor];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = self.style.titleFont;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleLabelClick:)];
@@ -278,7 +278,7 @@
         }];
     }
 
-    sourceLabel.backgroundColor = nil;
+    sourceLabel.backgroundColor = [UIColor clearColor];
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
 }
 
@@ -307,7 +307,7 @@
     UILabel *sourceLabel = self.titleLabels[self.currentIndex];
     UILabel *targetLabel = self.titleLabels[inIndex];
     
-    sourceLabel.backgroundColor = nil;
+    sourceLabel.backgroundColor = [UIColor clearColor];
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
     
     self.currentIndex = inIndex;

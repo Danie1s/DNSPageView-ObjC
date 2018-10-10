@@ -37,6 +37,7 @@
         self.titleFont = [UIFont systemFontOfSize:15];
         self.titleViewBackgroundColor = [UIColor whiteColor];
         self.titleMargin = 30;
+        self.titleViewSelectedColor = [UIColor clearColor];
         
         self.titleViewScrollEnabled = NO;
         

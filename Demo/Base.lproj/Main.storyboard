@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hbj-Z2-kg3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hbj-Z2-kg3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -172,9 +172,9 @@
                             <constraint firstItem="wsK-aI-3iX" firstAttribute="top" secondItem="uFM-QV-3KJ" secondAttribute="bottom" id="TBq-tW-UZt"/>
                             <constraint firstItem="wsK-aI-3iX" firstAttribute="leading" secondItem="ugk-df-7Df" secondAttribute="leading" id="Uhd-lZ-biV"/>
                             <constraint firstAttribute="trailing" secondItem="uFM-QV-3KJ" secondAttribute="trailing" id="edz-oU-IRE"/>
-                            <constraint firstItem="LS8-Fz-Lc3" firstAttribute="top" secondItem="wsK-aI-3iX" secondAttribute="bottom" id="iSc-J4-VmT"/>
                             <constraint firstItem="uFM-QV-3KJ" firstAttribute="top" secondItem="8K5-i6-cPE" secondAttribute="bottom" id="k8j-0V-X24"/>
                             <constraint firstItem="uFM-QV-3KJ" firstAttribute="leading" secondItem="ugk-df-7Df" secondAttribute="leading" id="vqV-Z7-6RA"/>
+                            <constraint firstAttribute="bottom" secondItem="wsK-aI-3iX" secondAttribute="bottom" id="xcZ-Qf-YY7"/>
                         </constraints>
                     </view>
                     <connections>

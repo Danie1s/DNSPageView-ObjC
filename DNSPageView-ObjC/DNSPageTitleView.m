@@ -194,7 +194,7 @@
 }
 
 - (void)setupCoverViewLayout {
-    if (self.currentIndex > self.titleLabels.count - 1) {
+    if (self.currentIndex >= self.titleLabels.count) {
         return;
     }
     UILabel *label = self.titleLabels[self.currentIndex];
@@ -210,7 +210,7 @@
 }
 
 - (void)setupBottomLineLayout {
-    if (self.currentIndex > self.titleLabels.count - 1) {
+    if (self.currentIndex >= self.titleLabels.count) {
         return;
     }
     UILabel *label = self.titleLabels[self.currentIndex];
@@ -318,10 +318,10 @@
 }
 
 - (void)contentView:(DNSPageContentView *)contentView sourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress {
-    if (sourceIndex > self.titleLabels.count - 1 || sourceIndex < 0) {
+    if (sourceIndex >= self.titleLabels.count || sourceIndex < 0) {
         return;
     }
-    if (targetIndex > self.titleLabels.count - 1 || targetIndex < 0) {
+    if (targetIndex >= self.titleLabels.count || targetIndex < 0) {
         return;
     }
     UILabel *sourceLabel = self.titleLabels[sourceIndex];

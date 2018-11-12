@@ -234,7 +234,7 @@ DNSPageStyle中提供了常见样式的属性，可以按照不同的需求进�
 
 DNSPageView提供了常见事件监听的代理
 
-```swift
+```objective-c
 /**
  如果contentView中的view需要实现某些刷新的方法，请让对应的childViewController遵守这个协议
  */

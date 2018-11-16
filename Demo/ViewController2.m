@@ -51,11 +51,13 @@
         ContentViewController *controller = [[ContentViewController alloc] init];
         controller.view.backgroundColor = [UIColor randomColor];
         [childViewControllers addObject:controller];
+        [self addChildViewController:controller];
+
     }
     
     // 对contentView进行设置
     self.contentView.childViewControllers = childViewControllers;
-    self.contentView.startIndex = startIndex;
+    self.contentView.currentIndex = startIndex;
     self.contentView.style = style;
     
     // 最后要调用setupUI方法

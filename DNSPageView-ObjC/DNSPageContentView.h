@@ -39,11 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray<UIViewController *> *childViewControllers;
 
-@property (nonatomic, assign) NSInteger startIndex;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers startIndex:(NSInteger)startIndex;
+- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers currentIndex:(NSInteger)currentIndex;
 
 - (void)setupUI;
 

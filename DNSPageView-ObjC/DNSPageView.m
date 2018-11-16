@@ -57,7 +57,7 @@
 
 - (DNSPageContentView *)contentView {
     if (!_contentView) {
-        _contentView = [[DNSPageContentView alloc] initWithFrame:CGRectZero style:self.style childViewControllers:self.childViewControllers startIndex:self.startIndex];
+        _contentView = [[DNSPageContentView alloc] initWithFrame:CGRectZero style:self.style childViewControllers:self.childViewControllers currentIndex:self.startIndex];
     }
     return _contentView;
 }

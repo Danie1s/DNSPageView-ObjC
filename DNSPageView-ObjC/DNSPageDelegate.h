@@ -32,18 +32,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DNSPageTitleViewDelegate <NSObject>
 
-- (void)titleView:(DNSPageTitleView *)titleView currentIndex:(NSInteger)currentIndex;
+- (void)titleView:(DNSPageTitleView *)titleView didSelectAt:(NSInteger)index;
 
-- (void)titleViewDidSelectedSameTitle;
+- (void)titleViewDidSelectSameTitle;
 
 @end
 
 
 @protocol DNSPageContentViewDelegate <NSObject>
 
-- (void)contentView:(DNSPageContentView *)contentView inIndex:(NSInteger)inIndex;
+- (void)contentView:(DNSPageContentView *)contentView didEndScrollAtIndex:(NSInteger)index;
 
-- (void)contentView:(DNSPageContentView *)contentView sourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress;
+- (void)contentView:(DNSPageContentView *)contentView scrollingWithSourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress;
 
 @end
 
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  如果需要双击标题刷新或者作其他处理，请实现这个方法
  */
-- (void)titleViewDidSelectedSameTitle;
+- (void)titleViewDidSelectSameTitle;
 
 
 /**

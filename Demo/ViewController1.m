@@ -35,6 +35,7 @@
         ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
         controller.view.backgroundColor = [UIColor randomColor];
         [childViewControllers addObject:controller];
+        [self addChildViewController:controller];
     }
     
     CGFloat y = [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;

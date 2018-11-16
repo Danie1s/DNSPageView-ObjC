@@ -40,6 +40,7 @@
             ContentViewController *controller = [[ContentViewController alloc] init];
             controller.view.backgroundColor = [UIColor randomColor];
             [childViewControllers addObject:controller];
+            [self addChildViewController:controller];
         }
         _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:childViewControllers startIndex:0];
     }

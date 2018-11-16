@@ -62,7 +62,7 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
  @param index 需要点击的titleView的下标
  */
-- (void)selectedTitleInIndex:(NSInteger)index;
+- (void)selectedTitleAtIndex:(NSInteger)index;
 
 @end
 

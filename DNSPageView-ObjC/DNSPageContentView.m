@@ -67,12 +67,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     return _collectionView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers startIndex:(NSInteger)startIndex {
+- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers currentIndex:(NSInteger)currentIndex {
     self = [super initWithFrame:frame];
     if (self) {
         self.childViewControllers = childViewControllers;
         self.style = style;
-        self.startIndex = startIndex;
+        self.currentIndex = currentIndex;
         [self setupUI];
     }
     return self;
@@ -89,7 +89,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     self.collectionView.frame = self.bounds;
     DNSPageCollectionViewFlowLayout *layout = (DNSPageCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.itemSize = self.bounds.size;
-    layout.offset = self.startIndex * self.bounds.size.width;
+    layout.offset = self.currentIndex * self.bounds.size.width;
 }
 
 - (void)setupUI {
@@ -141,9 +141,11 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 
 - (void)collectionViewDidEndScroll:(UIScrollView *)scrollView {
-    NSInteger inIndex = (NSInteger)round(scrollView.contentOffset.x / scrollView.bounds.size.width);
-    UIViewController *childViewController = self.childViewControllers[inIndex];
+    NSInteger index = (NSInteger)round(scrollView.contentOffset.x / scrollView.bounds.size.width);
     
+    self.currentIndex = index;
+    
+    UIViewController *childViewController = self.childViewControllers[index];
     if ([childViewController conformsToProtocol:@protocol(DNSPageReloaderDelegate)]) {
         self.reloader = (UIViewController<DNSPageReloaderDelegate> *)childViewController;
         if ([self.reloader respondsToSelector:@selector(contentViewDidEndScroll)]) {
@@ -151,8 +153,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         }
     }
     
-    if ([self.delegate respondsToSelector:@selector(contentView:inIndex:)]) {
-        [self.delegate contentView:self inIndex:inIndex];
+    if ([self.delegate respondsToSelector:@selector(contentView:didEndScrollAtIndex:)]) {
+        [self.delegate contentView:self didEndScrollAtIndex:index];
     }
 }
 
@@ -173,7 +175,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if (self.collectionView.contentOffset.x > self.startOffsetX) {
         sourceIndex = index;
         targetIndex = index + 1;
-        if (targetIndex > self.childViewControllers.count - 1) {
+        if (targetIndex >= self.childViewControllers.count) {
             return;
         }
     } else {
@@ -187,25 +189,26 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if (progress > 0.998) {
         progress = 1;
     }
-    if ([self.delegate respondsToSelector:@selector(contentView:sourceIndex:targetIndex:progress:)]) {
-        [self.delegate contentView:self sourceIndex:sourceIndex targetIndex:targetIndex progress:progress];
+    if ([self.delegate respondsToSelector:@selector(contentView:scrollingWithSourceIndex:targetIndex:progress:)]) {
+        [self.delegate contentView:self scrollingWithSourceIndex:sourceIndex targetIndex:targetIndex progress:progress];
     }
 }
 
 #pragma mark - DNSPageTitleViewDelegate
-- (void)titleView:(DNSPageTitleView *)titleView currentIndex:(NSInteger)currentIndex {
+- (void)titleView:(DNSPageTitleView *)titleView didSelectAt:(NSInteger)index {
     self.forbidDelegate = YES;
 
-    if (currentIndex > self.childViewControllers.count - 1) {
+    if (index >= self.childViewControllers.count) {
         return;
     }
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:currentIndex inSection:0];
+    self.currentIndex = index;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
 }
 
-- (void)titleViewDidSelectedSameTitle {
-    if ([self.reloader respondsToSelector:@selector(titleViewDidSelectedSameTitle)]) {
-        [self.reloader titleViewDidSelectedSameTitle];
+- (void)titleViewDidSelectSameTitle {
+    if ([self.reloader respondsToSelector:@selector(titleViewDidSelectSameTitle)]) {
+        [self.reloader titleViewDidSelectSameTitle];
     }
 }
 

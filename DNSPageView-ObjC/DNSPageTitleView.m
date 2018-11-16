@@ -134,7 +134,7 @@
         label.backgroundColor = idx == self.currentIndex ? self.style.titleViewSelectedColor : [UIColor clearColor];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = self.style.titleFont;
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleLabelClick:)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapedTitleLabel:)];
         [label addGestureRecognizer:tapGesture];
         label.userInteractionEnabled = YES;
         
@@ -180,7 +180,7 @@
     }];
     
     if (self.style.isTitleScaleEnabled) {
-        [self.titleLabels firstObject].transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
+        self.titleLabels[self.currentIndex].transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
     }
     
     if (self.style.isTitleViewScrollEnabled) {
@@ -223,15 +223,15 @@
 }
 
 
-- (void)selectedTitleInIndex:(NSInteger)index {
+- (void)selectedTitleAtIndex:(NSInteger)index {
     if (self.clickHandler) {
         self.clickHandler(self, index);
     }
 
     if (index == self.currentIndex) {
 
-        if ([self.delegate respondsToSelector:@selector(titleViewDidSelectedSameTitle)]) {
-            [self.delegate titleViewDidSelectedSameTitle];
+        if ([self.delegate respondsToSelector:@selector(titleViewDidSelectSameTitle)]) {
+            [self.delegate titleViewDidSelectSameTitle];
         }
         return;
     }
@@ -247,8 +247,8 @@
 
     [self adjustLabelPosition:targetLabel];
 
-    if ([self.delegate respondsToSelector:@selector(titleView:currentIndex:)]) {
-        [self.delegate titleView:self currentIndex:self.currentIndex];
+    if ([self.delegate respondsToSelector:@selector(titleView:didSelectAt:)]) {
+        [self.delegate titleView:self didSelectAt:self.currentIndex];
     }
 
     if (self.style.isTitleScaleEnabled) {
@@ -283,9 +283,9 @@
 }
 
 
-- (void)titleLabelClick:(UITapGestureRecognizer *)tap {
-    NSInteger targetIndex = tap.view.tag;
-    [self selectedTitleInIndex:targetIndex];
+- (void)tapedTitleLabel:(UITapGestureRecognizer *)tap {
+    NSInteger index = tap.view.tag;
+    [self selectedTitleAtIndex:index];
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {
@@ -303,21 +303,22 @@
 
 
 #pragma mark - DNSPageContentViewDelegate
-- (void)contentView:(DNSPageContentView *)contentView inIndex:(NSInteger)inIndex {
+- (void)contentView:(DNSPageContentView *)contentView didEndScrollAtIndex:(NSInteger)index {
     UILabel *sourceLabel = self.titleLabels[self.currentIndex];
-    UILabel *targetLabel = self.titleLabels[inIndex];
+    UILabel *targetLabel = self.titleLabels[index];
     
     sourceLabel.backgroundColor = [UIColor clearColor];
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
     
-    self.currentIndex = inIndex;
+    self.currentIndex = index;
     
     [self adjustLabelPosition:targetLabel];
     
     [self fixUI:targetLabel];
 }
 
-- (void)contentView:(DNSPageContentView *)contentView sourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress {
+
+- (void)contentView:(DNSPageContentView *)contentView scrollingWithSourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress {
     if (sourceIndex >= self.titleLabels.count || sourceIndex < 0) {
         return;
     }

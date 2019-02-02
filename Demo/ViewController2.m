@@ -24,7 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11, *)) {
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 
     // 创建DNSPageStyle，设置样式
     DNSPageStyle *style = [[DNSPageStyle alloc] init];

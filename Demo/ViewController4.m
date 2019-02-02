@@ -60,7 +60,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11, *)) {
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
     DNSPageTitleView *titleView = self.pageViewManager.titleView;
     [self.view addSubview:titleView];

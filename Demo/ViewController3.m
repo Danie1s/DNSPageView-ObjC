@@ -49,8 +49,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     // 单独设置titleView的frame
     self.navigationItem.titleView = self.pageViewManager.titleView;
@@ -62,6 +60,12 @@
     [contentView makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    if (@available(iOS 11, *)) {
+        contentView.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 

@@ -166,7 +166,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     NSInteger targetIndex = 0;
     NSInteger sourceIndex = 0;
     progress = (NSInteger)scrollView.contentOffset.x % (NSInteger)scrollView.bounds.size.width / scrollView.bounds.size.width;
-    if (progress == 0) {
+    if (progress == 0  || isnan(progress)) {
         return;
     }
 

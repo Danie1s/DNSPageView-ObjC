@@ -68,14 +68,6 @@
     DNSPageTitleView *titleView = self.pageViewManager.titleView;
     [self.view addSubview:titleView];
     
-    CGFloat margin = self.pageViewManager.style.titleMargin;
-    
-    // 计算titleView需要的宽度
-    // 如果style.isTitleScrollEnable = false，则不需要计算宽度，但是titleView的下划线会平分titleView的宽度
-    CGFloat width = 0;
-    for (NSString *title in self.titles) {
-        width += [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.pageViewManager.style.titleFont} context:nil].size.width + margin;
-    }
     
     // 单独设置titleView的大小和位置，可以使用autolayout或者frame
     [titleView makeConstraints:^(MASConstraintMaker *make) {
@@ -84,8 +76,7 @@
         } else {
             make.top.equalTo(self.mas_topLayoutGuideBottom);
         }
-        make.leading.equalTo(self.view);
-        make.width.equalTo(width);
+        make.leading.trailing.equalTo(self.view);
         make.height.equalTo(44);
     }];
     

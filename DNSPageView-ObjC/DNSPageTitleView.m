@@ -289,7 +289,7 @@
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {
-    if (self.style.isTitleViewScrollEnabled) {
+    if (self.style.isTitleViewScrollEnabled && self.scrollView.contentSize.width > self.scrollView.bounds.size.width) {
         CGFloat offsetX = targetLabel.center.x - self.bounds.size.width * 0.5;
         if (offsetX < 0) {
             offsetX = 0;

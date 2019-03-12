@@ -35,14 +35,13 @@
         NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育"];
         
         // 创建每一页对应的controller
-        NSMutableArray *childViewControllers = [NSMutableArray array];
-        for (NSString *title in titles) {
-            ContentViewController *controller = [[ContentViewController alloc] init];
+        for (int i = 0; i < titles.count; i++) {
+            ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
             controller.view.backgroundColor = [UIColor randomColor];
-            [childViewControllers addObject:controller];
+            controller.index = i;
             [self addChildViewController:controller];
         }
-        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:childViewControllers startIndex:0];
+        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
     }
     return _pageViewManager;
 }

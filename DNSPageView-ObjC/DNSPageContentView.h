@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, weak) id<DNSPageContentViewDelegate> delegate;
 
+@property (nullable, nonatomic, weak) id<DNSPageEventHandlerDelegate> eventHandler;
+
 @property (nonatomic, strong) DNSPageStyle *style;
 
 @property (nonatomic, strong) NSArray<UIViewController *> *childViewControllers;

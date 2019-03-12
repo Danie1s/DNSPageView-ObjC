@@ -13,7 +13,7 @@
 #define MAS_SHORTHAND_GLOBALS
 #import "Masonry.h"
 
-@interface ContentViewController () <DNSPageReloaderDelegate>
+@interface ContentViewController () <DNSPageEventHandlerDelegate>
 
 @property (nonatomic, strong) UIButton *button;
 
@@ -41,6 +41,18 @@
     }];
 }
 
+// 出现的时候马上调用
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    NSLog(@"viewDidAppear，index: %ld", self.index);
+}
+
+// pop或者cell复用的时候调用
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+//    NSLog(@"viewDidDisappear，index: %ld", self.index);
+}
+
 
 - (void)push {
     UIViewController *controller = [[UIViewController alloc] init];
@@ -51,13 +63,16 @@
 
 
 - (void)titleViewDidSelectSameTitle {
-    NSLog(@"重复点击了标题");
+    NSLog(@"重复点击了标题，index: %ld", self.index);
 
 }
 
 - (void)contentViewDidEndScroll {
-    NSLog(@"contentView滑动结束");
+    NSLog(@"contentView滑动结束，index: %ld", self.index);
+}
 
+- (void)contentViewDidDisappear {
+    NSLog(@"我消失了，index: %ld", self.index);
 }
 
 @end

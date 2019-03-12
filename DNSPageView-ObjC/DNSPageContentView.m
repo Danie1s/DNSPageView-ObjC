@@ -37,8 +37,6 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-@property (nullable, nonatomic, weak) id<DNSPageReloaderDelegate> reloader;
-
 @end
 
 @implementation DNSPageContentView
@@ -111,8 +109,8 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
         [subview removeFromSuperview];
     }
     UIViewController *childViewController = self.childViewControllers[indexPath.item];
-    if ([childViewController conformsToProtocol:@protocol(DNSPageReloaderDelegate)]) {
-        self.reloader = (UIViewController<DNSPageReloaderDelegate> *)childViewController;
+    if ([childViewController conformsToProtocol:@protocol(DNSPageEventHandlerDelegate)]) {
+        self.eventHandler = (UIViewController<DNSPageEventHandlerDelegate> *)childViewController;
     }
     childViewController.view.frame = cell.contentView.bounds;
     [cell.contentView addSubview:childViewController.view];
@@ -142,20 +140,32 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 - (void)collectionViewDidEndScroll:(UIScrollView *)scrollView {
     NSInteger index = (NSInteger)round(scrollView.contentOffset.x / scrollView.bounds.size.width);
+
+    if ([self.delegate respondsToSelector:@selector(contentView:didEndScrollAtIndex:)]) {
+        [self.delegate contentView:self didEndScrollAtIndex:index];
+    }
+
+    if (index != self.currentIndex) {
+        UIViewController *childViewController = self.childViewControllers[self.currentIndex];
+        if ([childViewController conformsToProtocol:@protocol(DNSPageEventHandlerDelegate)]) {
+            UIViewController<DNSPageEventHandlerDelegate> *eventHandler = (UIViewController<DNSPageEventHandlerDelegate> *)childViewController;
+            if ([eventHandler respondsToSelector:@selector(contentViewDidDisappear)]) {
+                [eventHandler contentViewDidDisappear];
+            }
+        }
+    }
     
     self.currentIndex = index;
     
     UIViewController *childViewController = self.childViewControllers[index];
-    if ([childViewController conformsToProtocol:@protocol(DNSPageReloaderDelegate)]) {
-        self.reloader = (UIViewController<DNSPageReloaderDelegate> *)childViewController;
-        if ([self.reloader respondsToSelector:@selector(contentViewDidEndScroll)]) {
-            [self.reloader contentViewDidEndScroll];
+    if ([childViewController conformsToProtocol:@protocol(DNSPageEventHandlerDelegate)]) {
+        self.eventHandler = (UIViewController<DNSPageEventHandlerDelegate> *)childViewController;
+        if ([self.eventHandler respondsToSelector:@selector(contentViewDidEndScroll)]) {
+            [self.eventHandler contentViewDidEndScroll];
         }
     }
     
-    if ([self.delegate respondsToSelector:@selector(contentView:didEndScrollAtIndex:)]) {
-        [self.delegate contentView:self didEndScrollAtIndex:index];
-    }
+
 }
 
 - (void)updateUI:(UIScrollView *)scrollView {
@@ -195,7 +205,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 }
 
 #pragma mark - DNSPageTitleViewDelegate
-- (void)titleView:(DNSPageTitleView *)titleView didSelectAt:(NSInteger)index {
+- (void)titleView:(DNSPageTitleView *)titleView didSelectAtIndex:(NSInteger)index {
     self.forbidDelegate = YES;
 
     if (index >= self.childViewControllers.count) {
@@ -206,11 +216,6 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
 }
 
-- (void)titleViewDidSelectSameTitle {
-    if ([self.reloader respondsToSelector:@selector(titleViewDidSelectSameTitle)]) {
-        [self.reloader titleViewDidSelectSameTitle];
-    }
-}
 
 
 @end

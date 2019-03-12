@@ -34,11 +34,10 @@
     NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育" , @"科技" , @"汽车" , @"时尚" , @"图片" , @"游戏" , @"房产"];
     
     // 创建每一页对应的controller
-    NSMutableArray *childViewControllers = [NSMutableArray array];
-    for (NSString *title in titles) {
+    for (int i = 0; i < titles.count; i++) {
         ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
         controller.view.backgroundColor = [UIColor randomColor];
-        [childViewControllers addObject:controller];
+        controller.index = i;
         [self addChildViewController:controller];
     }
     
@@ -46,7 +45,7 @@
     CGSize size = [UIScreen mainScreen].bounds.size;
     
     // 创建对应的DNSPageView，并设置它的frame
-    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height) style:style titles:titles childViewControllers:childViewControllers startIndex:0];
+    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height) style:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
     [self.view addSubview:pageView];
 }
 

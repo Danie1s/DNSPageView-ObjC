@@ -30,11 +30,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DNSPageTitleView, DNSPageContentView;
 
+/**
+ DNSPageView的事件回调，如果有需要，请让对应的childViewController遵守这个协议
+ */
+@protocol DNSPageEventHandlerDelegate <NSObject>
+@optional
+
+
+/**
+ 重复点击pageTitleView后调用
+ */
+- (void)titleViewDidSelectSameTitle;
+
+
+/**
+ pageContentView的上一页消失的时候调用
+ */
+- (void)contentViewDidDisappear;
+
+/**
+ pageContentView滚动到下一页停下来的时候调用
+ */
+- (void)contentViewDidEndScroll;
+
+@end
+
 @protocol DNSPageTitleViewDelegate <NSObject>
 
-- (void)titleView:(DNSPageTitleView *)titleView didSelectAt:(NSInteger)index;
+@property (nullable, nonatomic, weak) id<DNSPageEventHandlerDelegate> eventHandler;
 
-- (void)titleViewDidSelectSameTitle;
+- (void)titleView:(DNSPageTitleView *)titleView didSelectAtIndex:(NSInteger)index;
 
 @end
 
@@ -44,27 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)contentView:(DNSPageContentView *)contentView didEndScrollAtIndex:(NSInteger)index;
 
 - (void)contentView:(DNSPageContentView *)contentView scrollingWithSourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress;
-
-@end
-
-
-/**
- 如果contentView中的view需要实现某些刷新的方法，请让对应的childViewController遵守这个协议
- */
-@protocol DNSPageReloaderDelegate <NSObject>
-@optional
-
-
-/**
- 如果需要双击标题刷新或者作其他处理，请实现这个方法
- */
-- (void)titleViewDidSelectSameTitle;
-
-
-/**
- 如果pageContentView滚动到下一页停下来需要刷新或者作其他处理，请实现这个方法
- */
-- (void)contentViewDidEndScroll;
 
 @end
 

@@ -26,12 +26,6 @@
 
 @implementation ViewController4
 
-- (NSArray<NSString *> *)titles {
-    if (!_titles) {
-        _titles = @[@"头条", @"视频"];
-    }
-    return _titles;
-}
 
 - (DNSPageViewManager *)pageViewManager {
     if (!_pageViewManager) {
@@ -43,16 +37,18 @@
         style.titleColor = [UIColor grayColor];
         style.titleSelectedColor = [UIColor blackColor];
         style.bottomLineColor = [UIColor colorWithRed:0 / 255.0 green:143 / 255.0 blue:223 / 255.0 alpha:1.0];
-        
+
+        // 设置标题内容
+        NSArray <NSString *>*titles = @[@"头条", @"视频"];
+
         // 创建每一页对应的controller
-        NSMutableArray *childViewControllers = [NSMutableArray array];
-        for (NSString *title in self.titles) {
-            ContentViewController *controller = [[ContentViewController alloc] init];
+        for (int i = 0; i < titles.count; i++) {
+            ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
             controller.view.backgroundColor = [UIColor randomColor];
-            [childViewControllers addObject:controller];
+            controller.index = i;
             [self addChildViewController:controller];
         }
-        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:self.titles childViewControllers:childViewControllers startIndex:0];
+        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
     }
     return _pageViewManager;
 }

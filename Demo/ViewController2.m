@@ -49,17 +49,15 @@
     [self.titleView setupUI];
     
     // 创建每一页对应的controller
-    NSMutableArray *childViewControllers = [NSMutableArray array];
-    for (NSString *title in titles) {
-        ContentViewController *controller = [[ContentViewController alloc] init];
+    for (int i = 0; i < titles.count; i++) {
+        ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
         controller.view.backgroundColor = [UIColor randomColor];
-        [childViewControllers addObject:controller];
+        controller.index = i;
         [self addChildViewController:controller];
-
     }
     
     // 对contentView进行设置
-    self.contentView.childViewControllers = childViewControllers;
+    self.contentView.childViewControllers = self.childViewControllers;
     self.contentView.currentIndex = startIndex;
     self.contentView.style = style;
     

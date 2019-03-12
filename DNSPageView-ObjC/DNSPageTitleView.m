@@ -224,14 +224,17 @@
 
 
 - (void)selectedTitleAtIndex:(NSInteger)index {
+    if (index > self.titles.count || index < 0) {
+        NSLog(@"DNSPageTitleView -- selectedTitle: 数组越界了, index的值超出有效范围");
+    }
+
     if (self.clickHandler) {
         self.clickHandler(self, index);
     }
 
     if (index == self.currentIndex) {
-
-        if ([self.delegate respondsToSelector:@selector(titleViewDidSelectSameTitle)]) {
-            [self.delegate titleViewDidSelectSameTitle];
+        if ([self.delegate.eventHandler respondsToSelector:@selector(titleViewDidSelectSameTitle)]) {
+            [self.delegate.eventHandler titleViewDidSelectSameTitle];
         }
         return;
     }
@@ -243,13 +246,17 @@
     sourceLabel.textColor = self.style.titleColor;
     targetLabel.textColor = self.style.titleSelectedColor;
 
+    if ([self.delegate.eventHandler respondsToSelector:@selector(contentViewDidDisappear)]) {
+        [self.delegate.eventHandler contentViewDidDisappear];
+    }
+
     self.currentIndex = index;
 
-    [self adjustLabelPosition:targetLabel];
-
-    if ([self.delegate respondsToSelector:@selector(titleView:didSelectAt:)]) {
-        [self.delegate titleView:self didSelectAt:self.currentIndex];
+    if ([self.delegate respondsToSelector:@selector(titleView:didSelectAtIndex:)]) {
+        [self.delegate titleView:self didSelectAtIndex:self.currentIndex];
     }
+
+    [self adjustLabelPosition:targetLabel];
 
     if (self.style.isTitleScaleEnabled) {
         [UIView animateWithDuration:0.25 animations:^{

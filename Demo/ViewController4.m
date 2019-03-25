@@ -43,7 +43,7 @@
 
         // 创建每一页对应的controller
         for (int i = 0; i < titles.count; i++) {
-            ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
+            ContentViewController *controller = [[ContentViewController alloc] init];
             controller.view.backgroundColor = [UIColor randomColor];
             controller.index = i;
             [self addChildViewController:controller];

@@ -106,8 +106,8 @@ NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"�
 // 创建每一页对应的controller
 NSMutableArray *childViewControllers = [NSMutableArray array];
 for (NSString *title in titles) {
-    ContentViewController *controller = [[ContentViewController alloc] initWithNibName: nil bundle:nil];
-    controller.view.backgroundColor = [UIColor randomColor];
+    UIViewController *controller = [[UIViewController alloc] init];
+    [self addChildViewController:controller];
     [childViewControllers addObject:controller];
 }
 
@@ -156,8 +156,8 @@ self.titleView.currentIndex = startIndex;
 // 创建每一页对应的controller
 NSMutableArray *childViewControllers = [NSMutableArray array];
 for (NSString *title in titles) {
-    ContentViewController *controller = [[ContentViewController alloc] init];
-    controller.view.backgroundColor = [UIColor randomColor];
+    UIViewController *controller = [[UIViewController alloc] init];
+    [self addChildViewController:controller];
     [childViewControllers addObject:controller];
 }
 
@@ -196,8 +196,8 @@ self.contentView.delegate = self.titleView;
         // 创建每一页对应的controller
         NSMutableArray *childViewControllers = [NSMutableArray array];
         for (NSString *title in titles) {
-            ContentViewController *controller = [[ContentViewController alloc] init];
-            controller.view.backgroundColor = [UIColor randomColor];
+    		UIViewController *controller = [[UIViewController alloc] init];
+            [self addChildViewController:controller];
             [childViewControllers addObject:controller];
         }
         _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:childViewControllers startIndex:0];
@@ -232,24 +232,29 @@ DNSPageStyle中提供了常见样式的属性，可以按照不同的需求进�
 
 ### 事件监听
 
-DNSPageView提供了常见事件监听的代理
+DNSPageView提供了常见事件监听的代理，它属于DNSPageTitleViewDelegate的中的属性
 
 ```objective-c
 /**
- 如果contentView中的view需要实现某些刷新的方法，请让对应的childViewController遵守这个协议
+ DNSPageView的事件回调，如果有需要，请让对应的childViewController遵守这个协议
  */
-@protocol DNSPageReloaderDelegate <NSObject>
+@protocol DNSPageEventHandlerDelegate <NSObject>
 @optional
 
 
 /**
- 如果需要双击标题刷新或者作其他处理，请实现这个方法
+ 重复点击pageTitleView后调用
  */
-- (void)titleViewDidSelectedSameTitle;
+- (void)titleViewDidSelectSameTitle;
 
 
 /**
- 如果pageContentView滚动到下一页停下来需要刷新或者作其他处理，请实现这个方法
+ pageContentView的上一页消失的时候，上一页对应的controller调用
+ */
+- (void)contentViewDidDisappear;
+
+/**
+ pageContentView滚动停止的时候，当前页对应的controller调用
  */
 - (void)contentViewDidEndScroll;
 
@@ -260,25 +265,24 @@ DNSPageView提供了常见事件监听的代理
 
 ### 常见问题
 
-- 标签比较少时，`titleView`不固定、会滑动
+- `style.isTitleViewScrollEnabled`
 
-  当`style.isTitleViewScrollEnabled = YES`时，代表标签会比较多，所以默认会滑动。如果标签比较少，建议设置`style.isTitleViewScrollEnabled = NO`。
+  如果标签比较少，建议设置`style.titleViewScrollEnabled = NO`，`titleView`会固定，`style.titleMargin`不起作用，每个标签平分整个`titleView`的宽度，下划线的宽度等于标签的宽度。
 
-  **在最新版中，当`style.isTitleViewScrollEnabled = YES`时，如果标签比较少也不会滑动。**
+  如果标签比较多，建议设置`style.titleViewScrollEnabled = YES`，`titleView`会滑动，下划线的宽度随着标签文字的宽度变化而变化
 
 - 标签下划线的宽度跟随文字的宽度
 
-  当`style.isTitleViewScrollEnabled = NO`时，表示标签比较少，默认每个标签平分整个`titleView`的宽度，而下划线的宽度等于标签的宽度，这种样式的需求也很常见。
+  设置`style.titleViewScrollEnabled = YES`，可以参考demo中的第四种样式。
 
-  要想实现标签下划线的宽度跟随文字的宽度，需要设置`style.isTitleViewScrollEnabled = YES`，可以参考demo中的第四种样式。
+- 由于`DNSPageView`是基于`UIScrollView`实现，那么就无法避免它的一些特性：
 
-- 由于DNSPageView-ObjC是基于`UIScrollView`实现，那么就无法避免它的一些特性：
-
-  - 当`navigationBar.isTranslucent = YES`的时候，布局是从（0, 0）开始的，所以默认系统会给`UIScrollView`添加offset
-  - iOS 11 以前是`automaticallyAdjustsScrollViewInsets `起作用
-  - iOS 11 以后引入SafeArea概念，由`contentInsetAdjustmentBehavior`管理
-  - `DNSPageContentView`用`UICollectionView`实现，所以这个特性有机会造成`UICollectionView`的高度小于`item`的高度，造成奇怪的bug
-  - 开发者需要明确了解自己需要的布局是怎么样，并且作出对应的调整，注意相关的细节，不能完全参照`demo`
+  - 当控制器被`UINavigationController`管理，且`navigationBar.isTranslucent = YES`的时候，当前控制器的`view`是从`y = 0`开始布局的，所以为了防止部分内容被`navigationBar`遮挡，系统默认会给`UIScrollView`添加offset。如果想取消这个特性：
+    - iOS 11 以前，在控制器中设置`self.automaticallyAdjustsScrollViewInsets = NO `
+    - iOS 11 以后引入`SafeArea`概念，设置`UIScrollView`的属性`contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever`
+    - 其实这个效果还与`UIViewController`的其他属性有关系，但因为各种组合的情景过于复杂，所以不在此一一描述
+  - `DNSPageContentView`用`UICollectionView`实现，所以这个特性有机会造成`UICollectionView`的高度小于它的`item`的高度，造成奇怪的Bug。
+  - 以上只是可能出现的Bug之一，由于`Demo`不能覆盖所有的场景，不同的布局需求可能会引起不同的Bug，开发者需要明确了解自己的布局需求，注意细节，了解iOS布局特性，并且作出对应的调整，不能完全参照`Demo`。
 
 
 ## License

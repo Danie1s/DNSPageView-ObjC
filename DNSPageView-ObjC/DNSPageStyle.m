@@ -43,6 +43,7 @@
         
         self.showBottomLine = NO;
         self.bottomLineColor = [UIColor blueColor];
+        self.bottomLineWidth = 0;
         self.bottomLineHeight = 2;
         self.bottomLineRadius = 1;
         

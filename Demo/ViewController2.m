@@ -33,7 +33,7 @@
     DNSPageStyle *style = [[DNSPageStyle alloc] init];
     style.titleViewBackgroundColor = [UIColor redColor];
     style.showCoverView = YES;
-    
+
     // 设置标题内容
     NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育"];
     

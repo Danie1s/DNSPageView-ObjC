@@ -45,26 +45,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  titleView滑动
  */
-@property (nonatomic, assign, getter = isTitleViewScrollEnabled) BOOL titleViewScrollEnabled;
+@property (nonatomic, assign, getter=isTitleViewScrollEnabled) BOOL titleViewScrollEnabled;
 
 /**
  title下划线
  */
-@property (nonatomic, assign, getter = isShowBottomLine) BOOL showBottomLine;
+@property (nonatomic, assign, getter=isShowBottomLine) BOOL showBottomLine;
 @property (nonatomic, strong) UIColor *bottomLineColor;
+@property (nonatomic, assign) CGFloat bottomLineWidth;
 @property (nonatomic, assign) CGFloat bottomLineHeight;
 @property (nonatomic, assign) CGFloat bottomLineRadius;
 
 /**
  title缩放
  */
-@property (nonatomic, assign, getter = isTitleScaleEnabled) BOOL titleScaleEnabled;
+@property (nonatomic, assign, getter=isTitleScaleEnabled) BOOL titleScaleEnabled;
 @property (nonatomic, assign) CGFloat titleMaximumScaleFactor;
 
 /**
  title遮罩
  */
-@property (nonatomic, assign, getter = isShowCoverView) BOOL showCoverView;
+@property (nonatomic, assign, getter=isShowCoverView) BOOL showCoverView;
 @property (nonatomic, strong) UIColor *coverViewBackgroundColor;
 @property (nonatomic, assign) CGFloat coverViewAlpha;
 @property (nonatomic, assign) CGFloat coverMargin;
@@ -74,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  contentView
  */
-@property (nonatomic, assign, getter = isContentScrollEnabled) BOOL contentScrollEnabled;
+@property (nonatomic, assign, getter=isContentScrollEnabled) BOOL contentScrollEnabled;
 @property (nonatomic, strong) UIColor *contentViewBackgroundColor;
 
 NS_ASSUME_NONNULL_END

@@ -173,9 +173,10 @@
             width = [self.titles[idx] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.font} context:nil].size.width;
             x = idx == 0 ? self.style.titleMargin * 0.5 : (CGRectGetMaxX(self.titleLabels[idx - 1].frame) + self.style.titleMargin);
         } else {
-            width = self.bounds.size.width / (CGFloat)count;
+            width = self.frame.size.width / (CGFloat)count;
             x = width * (CGFloat)idx;
         }
+        obj.transform = CGAffineTransformIdentity;
         obj.frame = CGRectMake(x, y, width, height);
     }];
     
@@ -198,15 +199,13 @@
         return;
     }
     UILabel *label = self.titleLabels[self.currentIndex];
-    CGFloat width = label.bounds.size.width;
+    CGFloat width = label.frame.size.width;
     CGFloat height = self.style.coverViewHeight;
-    CGFloat x = label.frame.origin.x;
-    CGFloat y = (label.frame.size.height - height) * 0.5;
     if (self.style.isTitleViewScrollEnabled) {
-        x -= self.style.coverMargin;
         width += self.style.coverMargin * 2;
     }
-    self.coverView.frame = CGRectMake(x, y, width, height);
+    self.coverView.frame = CGRectMake(0, 0, width, height);
+    self.coverView.center = label.center;
 }
 
 - (void)setupBottomLineLayout {
@@ -215,11 +214,15 @@
     }
     UILabel *label = self.titleLabels[self.currentIndex];
     CGRect frame = self.bottomLine.frame;
-    frame.origin.x = label.frame.origin.x;
-    frame.origin.y = self.bounds.size.height - self.style.bottomLineHeight;
-    frame.size.width = label.frame.size.width;
+    frame.size.width = self.style.bottomLineWidth > 0 ? self.style.bottomLineWidth : label.frame.size.width;
     frame.size.height = self.style.bottomLineHeight;
+    frame.origin.y = self.frame.size.height - frame.size.height;
     self.bottomLine.frame = frame;
+
+    CGPoint center = self.bottomLine.center;
+    center.x = label.center.x;
+    self.bottomLine.center = center;
+
 }
 
 
@@ -268,20 +271,22 @@
     if (self.style.isShowBottomLine) {
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.bottomLine.frame;
-            frame.origin.x = targetLabel.frame.origin.x;
-            frame.size.width = targetLabel.frame.size.width;
+            frame.size.width = self.style.bottomLineWidth > 0 ? self.style.bottomLineWidth : targetLabel.frame.size.width;
             self.bottomLine.frame = frame;
+            CGPoint center = self.bottomLine.center;
+            center.x = targetLabel.center.x;
+            self.bottomLine.center = center;
         }];
     }
 
     if (self.style.isShowCoverView) {
-        CGFloat x = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
-        CGFloat width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.coverView.frame;
-            frame.origin.x = x;
-            frame.size.width = width;
+            frame.size.width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;;
             self.coverView.frame = frame;
+            CGPoint center = self.coverView.center;
+            center.x = targetLabel.center.x;
+            self.coverView.center = center;
         }];
     }
 
@@ -296,13 +301,13 @@
 }
 
 - (void)adjustLabelPosition:(UILabel *)targetLabel {
-    if (self.style.isTitleViewScrollEnabled && self.scrollView.contentSize.width > self.scrollView.bounds.size.width) {
-        CGFloat offsetX = targetLabel.center.x - self.bounds.size.width * 0.5;
+    if (self.style.isTitleViewScrollEnabled && self.scrollView.contentSize.width > self.scrollView.frame.size.width) {
+        CGFloat offsetX = targetLabel.center.x - self.frame.size.width * 0.5;
         if (offsetX < 0) {
             offsetX = 0;
         }
-        if (offsetX > self.scrollView.contentSize.width - self.scrollView.bounds.size.width) {
-            offsetX = self.scrollView.contentSize.width - self.scrollView.bounds.size.width;
+        if (offsetX > self.scrollView.contentSize.width - self.scrollView.frame.size.width) {
+            offsetX = self.scrollView.contentSize.width - self.scrollView.frame.size.width;
         }
         [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     }
@@ -344,21 +349,29 @@
     }
     
     if (self.style.isShowBottomLine) {
-        CGFloat deltaX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x;
-        CGFloat deltaW = targetLabel.frame.size.width - sourceLabel.frame.size.width;
-        CGRect frame = self.bottomLine.frame;
-        frame.origin.x = sourceLabel.frame.origin.x + progress * deltaX;
-        frame.size.width = sourceLabel.frame.size.width + progress * deltaW;
-        self.bottomLine.frame = frame;
+        CGFloat deltaCenterX = targetLabel.center.x - sourceLabel.center.x;
+        CGFloat deltaWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width;
+        CGPoint center = self.bottomLine.center;
+        center.x = sourceLabel.center.x + progress * deltaCenterX;
+        self.bottomLine.center = center;
+
+        if (self.style.bottomLineWidth <= 0) {
+            CGRect frame = self.bottomLine.frame;
+            frame.size.width = sourceLabel.frame.size.width + progress * deltaWidth;
+            self.bottomLine.frame = frame;
+        }
+
     }
     
     if (self.style.isShowCoverView) {
-        CGFloat deltaX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x;
-        CGFloat deltaW = targetLabel.frame.size.width - sourceLabel.frame.size.width;
+        CGFloat deltaCenterX = targetLabel.center.x - sourceLabel.center.x;
+        CGFloat deltaWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width;
         CGRect frame = self.coverView.frame;
-        frame.size.width = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.size.width + 2 * self.style.coverMargin + deltaW * progress) : (sourceLabel.frame.size.width + deltaW * progress);
-        frame.origin.x = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.origin.x - self.style.coverMargin + deltaX * progress) : (sourceLabel.frame.origin.x + deltaX * progress);
+        frame.size.width = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.size.width + 2 * self.style.coverMargin + deltaWidth * progress) : (sourceLabel.frame.size.width + deltaWidth * progress);
         self.coverView.frame = frame;
+        CGPoint center = self.coverView.center;
+        center.x = sourceLabel.center.x + progress * deltaCenterX;
+        self.coverView.center = center;
     }
 }
 
@@ -370,18 +383,26 @@
         if (self.style.isTitleScaleEnabled) {
             targetLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
         }
+
         if (self.style.isShowBottomLine) {
-            CGRect frame = self.bottomLine.frame;
-            frame.origin.x = targetLabel.frame.origin.x;
-            frame.size.width = targetLabel.frame.size.width;
-            self.bottomLine.frame = frame;
+            CGPoint center = self.bottomLine.center;
+            center.x = targetLabel.center.x;
+            self.bottomLine.center = center;
+
+            if (self.style.bottomLineWidth <= 0) {
+                CGRect frame = self.bottomLine.frame;
+                frame.size.width = targetLabel.frame.size.width;
+                self.bottomLine.frame = frame;
+            }
         }
         
         if (self.style.isShowCoverView) {
             CGRect frame = self.coverView.frame;
             frame.size.width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + 2 * self.style.coverMargin) : targetLabel.frame.size.width;
-            frame.origin.x = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.origin.x - self.style.coverMargin) : targetLabel.frame.origin.x;
             self.coverView.frame = frame;
+            CGPoint center = self.coverView.center;
+            center.x = targetLabel.center.x;
+            self.coverView.center = center;
         }
     }];
 }

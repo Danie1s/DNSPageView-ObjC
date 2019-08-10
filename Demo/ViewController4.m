@@ -31,15 +31,16 @@
     if (!_pageViewManager) {
         // 创建DNSPageStyle，设置样式
         DNSPageStyle *style = [[DNSPageStyle alloc] init];
-        style.showBottomLine = YES;
-        style.titleViewScrollEnabled = YES;
         style.titleViewBackgroundColor = [UIColor clearColor];
         style.titleColor = [UIColor grayColor];
         style.titleSelectedColor = [UIColor blackColor];
+        style.titleViewScrollEnabled = YES;
+        style.showBottomLine = YES;
         style.bottomLineColor = [UIColor colorWithRed:0 / 255.0 green:143 / 255.0 blue:223 / 255.0 alpha:1.0];
+        style.bottomLineWidth = 20;
 
         // 设置标题内容
-        NSArray <NSString *>*titles = @[@"头条", @"视频"];
+        NSArray <NSString *>*titles = @[@"微信支付", @"支付宝"];
 
         // 创建每一页对应的controller
         for (int i = 0; i < titles.count; i++) {

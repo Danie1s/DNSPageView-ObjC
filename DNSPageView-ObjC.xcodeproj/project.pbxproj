@@ -628,7 +628,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniels.DNSPageView-ObjC-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniels.DNSPageView-ObjC-Demo1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -647,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniels.DNSPageView-ObjC-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniels.DNSPageView-ObjC-Demo1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

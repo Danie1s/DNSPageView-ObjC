@@ -45,7 +45,7 @@
     CGSize size = [UIScreen mainScreen].bounds.size;
     
     // 创建对应的DNSPageView，并设置它的frame
-    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height) style:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
+    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height - y) style:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
     [self.view addSubview:pageView];
 }
 

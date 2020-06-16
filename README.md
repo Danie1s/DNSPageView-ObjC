@@ -29,6 +29,7 @@ DNSPageView的Objective-C版本，是一个灵活且易于使用的pageView框�
 - [x] 常见的样式
 - [x] 双击titleView的回调
 - [x] contentView滑动监听
+- [x] 适配 iOS 13 Dark Mode
 
 ## Requirements
 

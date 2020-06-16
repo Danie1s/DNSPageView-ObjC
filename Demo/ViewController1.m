@@ -28,7 +28,10 @@
     // 创建DNSPageStyle，设置样式
     DNSPageStyle *style = [[DNSPageStyle alloc] init];
     style.titleViewScrollEnabled = YES;
-    style.titleScaleEnabled = YES;
+    style.titleMargin = 10;
+    style.titleInset = 20;
+    style.titleSelectedFont = [UIFont systemFontOfSize:20];
+//    style.titleScaleEnabled = YES;
     
     // 设置标题内容
     NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育" , @"科技" , @"汽车" , @"时尚" , @"图片" , @"游戏" , @"房产"];

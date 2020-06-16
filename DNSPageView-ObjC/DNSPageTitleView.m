@@ -26,7 +26,7 @@
 
 #import "DNSPageTitleView.h"
 #import "DNSPageContentView.h"
-#import "UIColor+RGB.h"
+#import "UIColor+DNSRGB.h"
 
 
 
@@ -36,27 +36,15 @@
 @property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) NSArray<UILabel *> *titleLabels;
+@property (nonatomic, assign) RGBColorSpace normalRGB;
+@property (nonatomic, assign) RGBColorSpace selectRGB;
+@property (nonatomic, assign) RGBColorSpace deltaRGB;
 
 @end
 
 
 @implementation DNSPageTitleView
 
-- (RGBColorSpace)normalRGB {
-    return [self.style.titleColor getRGBColorSpace];
-}
-
-- (RGBColorSpace)selectRGB {
-    return [self.style.titleSelectedColor getRGBColorSpace];
-}
-
-- (RGBColorSpace)deltaRGB {
-    RGBColorSpace rgb;
-    rgb.red = self.selectRGB.red - self.normalRGB.red;
-    rgb.green = self.selectRGB.green - self.normalRGB.green;
-    rgb.blue = self.selectRGB.blue - self.normalRGB.blue;
-    return rgb;
-}
 
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
@@ -112,7 +100,14 @@
     
 }
 
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [self setupRGB];
+}
+
 - (void)setupUI {
+    [self setupRGB];
+    
     [self addSubview:self.scrollView];
     
     self.scrollView.backgroundColor = self.style.titleViewBackgroundColor;
@@ -122,6 +117,18 @@
     [self setupBottomLine];
     
     [self setupCoverView];
+}
+
+- (void)setupRGB {
+    self.normalRGB = [self.style.titleColor dns_getRGBColorSpace];
+
+    self.selectRGB = [self.style.titleSelectedColor dns_getRGBColorSpace];
+
+    RGBColorSpace rgb;
+    rgb.red = self.selectRGB.red - self.normalRGB.red;
+    rgb.green = self.selectRGB.green - self.normalRGB.green;
+    rgb.blue = self.selectRGB.blue - self.normalRGB.blue;
+    self.deltaRGB = rgb;
 }
 
 - (void)setupTitleLabels {
@@ -170,7 +177,10 @@
     NSInteger count = self.titles.count;
     [self.titleLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (self.style.isTitleViewScrollEnabled) {
-            width = [self.titles[idx] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.font} context:nil].size.width;
+            width = [self.titles[idx] boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 0)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{NSFontAttributeName: obj.font}
+                                                   context:nil].size.width + self.style.titleInset;
             x = idx == 0 ? self.style.titleMargin * 0.5 : (CGRectGetMaxX(self.titleLabels[idx - 1].frame) + self.style.titleMargin);
         } else {
             width = self.frame.size.width / (CGFloat)count;
@@ -179,6 +189,10 @@
         obj.transform = CGAffineTransformIdentity;
         obj.frame = CGRectMake(x, y, width, height);
     }];
+    
+    if (self.style.titleSelectedFont) {
+        self.titleLabels[self.currentIndex].font = self.style.titleSelectedFont;
+    }
     
     if (self.style.isTitleScaleEnabled) {
         self.titleLabels[self.currentIndex].transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor, self.style.titleMaximumScaleFactor);
@@ -213,8 +227,10 @@
         return;
     }
     UILabel *label = self.titleLabels[self.currentIndex];
+    
+    CGFloat titleInset = self.style.isTitleViewScrollEnabled ? self.style.titleInset : 0;
     CGRect frame = self.bottomLine.frame;
-    frame.size.width = self.style.bottomLineWidth > 0 ? self.style.bottomLineWidth : label.frame.size.width;
+    frame.size.width = self.style.bottomLineWidth > 0 ? self.style.bottomLineWidth : label.frame.size.width - titleInset;
     frame.size.height = self.style.bottomLineHeight;
     frame.origin.y = self.frame.size.height - frame.size.height;
     self.bottomLine.frame = frame;
@@ -260,6 +276,11 @@
     }
 
     [self adjustLabelPosition:targetLabel];
+    
+    if (self.style.titleSelectedFont) {
+        sourceLabel.font = self.style.titleFont;
+        targetLabel.font = self.style.titleSelectedFont;
+    }
 
     if (self.style.isTitleScaleEnabled) {
         [UIView animateWithDuration:0.25 animations:^{
@@ -269,9 +290,11 @@
     }
 
     if (self.style.isShowBottomLine) {
+        CGFloat titleInset = self.style.isTitleViewScrollEnabled ? self.style.titleInset : 0;
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.bottomLine.frame;
-            frame.size.width = self.style.bottomLineWidth > 0 ? self.style.bottomLineWidth : targetLabel.frame.size.width;
+            frame.size.width = self.style.bottomLineWidth > 0 ?
+                self.style.bottomLineWidth : targetLabel.frame.size.width - titleInset;
             self.bottomLine.frame = frame;
             
             CGPoint center = self.bottomLine.center;
@@ -283,7 +306,8 @@
     if (self.style.isShowCoverView) {
         [UIView animateWithDuration:0.25 animations:^{
             CGRect frame = self.coverView.frame;
-            frame.size.width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;;
+            frame.size.width = self.style.isTitleViewScrollEnabled ?
+                (targetLabel.frame.size.width + self.style.coverMargin * 2) : targetLabel.frame.size.width;;
             self.coverView.frame = frame;
             
             CGPoint center = self.coverView.center;
@@ -321,6 +345,12 @@
     UILabel *sourceLabel = self.titleLabels[self.currentIndex];
     UILabel *targetLabel = self.titleLabels[index];
     
+    if (self.style.titleSelectedFont) {
+        sourceLabel.font = self.style.titleFont;
+        targetLabel.font = self.style.titleSelectedFont;
+    }
+    
+    sourceLabel.textColor = self.style.titleColor;
     sourceLabel.backgroundColor = [UIColor clearColor];
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
     
@@ -341,20 +371,27 @@
     }
     UILabel *sourceLabel = self.titleLabels[sourceIndex];
     UILabel *targetLabel = self.titleLabels[targetIndex];
-    sourceLabel.textColor = [UIColor colorWithRed:(self.selectRGB.red - progress * self.deltaRGB.red) / 255.0 green:(self.selectRGB.green - progress * self.deltaRGB.green) / 255.0 blue:(self.selectRGB.blue - progress * self.deltaRGB.blue) / 255.0 alpha:1.0];
-    targetLabel.textColor = [UIColor colorWithRed:(self.normalRGB.red + progress * self.deltaRGB.red) / 255.0 green:(self.normalRGB.green + progress * self.deltaRGB.green) / 255.0 blue:(self.normalRGB.blue + progress * self.deltaRGB.blue) / 255.0 alpha:1.0];
-    
+    RGBColorSpace rgb1 = {self.selectRGB.red - progress * self.deltaRGB.red,
+                          self.selectRGB.green - progress * self.deltaRGB.green,
+                          self.selectRGB.blue - progress * self.deltaRGB.blue};
+    sourceLabel.textColor = [UIColor dns_colorWithRGBColorSpace:rgb1];
+    RGBColorSpace rgb2 = {self.normalRGB.red + progress * self.deltaRGB.red,
+                          self.normalRGB.green + progress * self.deltaRGB.green,
+                          self.normalRGB.blue + progress * self.deltaRGB.blue};
+    targetLabel.textColor = [UIColor dns_colorWithRGBColorSpace:rgb2];
     if (self.style.isTitleScaleEnabled) {
         CGFloat deltaScale = self.style.titleMaximumScaleFactor - 1.0;
-        sourceLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor - progress * deltaScale, self.style.titleMaximumScaleFactor - progress * deltaScale);
+        sourceLabel.transform = CGAffineTransformMakeScale(self.style.titleMaximumScaleFactor - progress * deltaScale,
+                                                           self.style.titleMaximumScaleFactor - progress * deltaScale);
         targetLabel.transform = CGAffineTransformMakeScale(1.0 + progress * deltaScale, 1.0 + progress * deltaScale);
     }
     
     if (self.style.isShowBottomLine) {
         if (self.style.bottomLineWidth <= 0) {
+            CGFloat titleInset = self.style.isTitleViewScrollEnabled ? self.style.titleInset : 0;
             CGFloat deltaWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width;
             CGRect frame = self.bottomLine.frame;
-            frame.size.width = sourceLabel.frame.size.width + progress * deltaWidth;
+            frame.size.width = sourceLabel.frame.size.width - titleInset + progress * deltaWidth;
             self.bottomLine.frame = frame;
         }
         
@@ -367,7 +404,9 @@
     if (self.style.isShowCoverView) {
         CGFloat deltaWidth = targetLabel.frame.size.width - sourceLabel.frame.size.width;
         CGRect frame = self.coverView.frame;
-        frame.size.width = self.style.isTitleViewScrollEnabled ? (sourceLabel.frame.size.width + 2 * self.style.coverMargin + deltaWidth * progress) : (sourceLabel.frame.size.width + deltaWidth * progress);
+        frame.size.width = self.style.isTitleViewScrollEnabled ?
+            (sourceLabel.frame.size.width + 2 * self.style.coverMargin + deltaWidth * progress) :
+            (sourceLabel.frame.size.width + deltaWidth * progress);
         self.coverView.frame = frame;
         
         CGFloat deltaCenterX = targetLabel.center.x - sourceLabel.center.x;
@@ -388,8 +427,9 @@
 
         if (self.style.isShowBottomLine) {
             if (self.style.bottomLineWidth <= 0) {
+                CGFloat titleInset = self.style.isTitleViewScrollEnabled ? self.style.titleInset : 0;
                 CGRect frame = self.bottomLine.frame;
-                frame.size.width = targetLabel.frame.size.width;
+                frame.size.width = targetLabel.frame.size.width - titleInset;
                 self.bottomLine.frame = frame;
             }
             
@@ -400,7 +440,8 @@
         
         if (self.style.isShowCoverView) {
             CGRect frame = self.coverView.frame;
-            frame.size.width = self.style.isTitleViewScrollEnabled ? (targetLabel.frame.size.width + 2 * self.style.coverMargin) : targetLabel.frame.size.width;
+            frame.size.width = self.style.isTitleViewScrollEnabled ?
+                (targetLabel.frame.size.width + 2 * self.style.coverMargin) : targetLabel.frame.size.width;
             self.coverView.frame = frame;
             
             CGPoint center = self.coverView.center;

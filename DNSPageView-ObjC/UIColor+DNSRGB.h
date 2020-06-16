@@ -1,5 +1,5 @@
 //
-//  UIColor+RGB.h
+//  UIColor+DNSRGB.h
 //  DNSPageView-ObjC
 //
 //  Created by Daniels Lau on 2018/9/26.
@@ -38,7 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (RGB)
 
-- (RGBColorSpace)getRGBColorSpace;
+- (RGBColorSpace)dns_getRGBColorSpace;
+
++ (instancetype)dns_colorWithRGBColorSpace:(RGBColorSpace)rgb;
 
 @end
 

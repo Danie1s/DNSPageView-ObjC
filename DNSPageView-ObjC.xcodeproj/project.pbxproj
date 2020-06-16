@@ -18,14 +18,16 @@
 		E100DDB9215B2C9B008EE5CD /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDAC215B2C9B008EE5CD /* View+MASAdditions.m */; };
 		E100DDBA215B2C9B008EE5CD /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDAF215B2C9B008EE5CD /* ViewController+MASAdditions.m */; };
 		E100DDBD215B457B008EE5CD /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDBC215B457B008EE5CD /* ContentViewController.m */; };
-		E100DDC0215B6DAF008EE5CD /* UIColor+RGB.h in Headers */ = {isa = PBXBuildFile; fileRef = E100DDBE215B6DAF008EE5CD /* UIColor+RGB.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E100DDC1215B6DAF008EE5CD /* UIColor+RGB.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDBF215B6DAF008EE5CD /* UIColor+RGB.m */; };
+		E100DDC0215B6DAF008EE5CD /* UIColor+DNSRGB.h in Headers */ = {isa = PBXBuildFile; fileRef = E100DDBE215B6DAF008EE5CD /* UIColor+DNSRGB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E100DDC1215B6DAF008EE5CD /* UIColor+DNSRGB.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDBF215B6DAF008EE5CD /* UIColor+DNSRGB.m */; };
 		E100DDC3215B903A008EE5CD /* DNSPageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E100DDC2215B903A008EE5CD /* DNSPageDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E100DDC6215B9440008EE5CD /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = E100DDC5215B9440008EE5CD /* UIColor+Random.m */; };
 		E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD51C21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */; };
 		E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = E14FD52021592D3100F63B9A /* DNSPageContentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14FD52121592D3100F63B9A /* DNSPageContentView.m */; };
+		E17F00FC249879BB00276FAA /* UIColor+DNSDynamic.h in Headers */ = {isa = PBXBuildFile; fileRef = E17F00FA249879BB00276FAA /* UIColor+DNSDynamic.h */; };
+		E17F00FD249879BB00276FAA /* UIColor+DNSDynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = E17F00FB249879BB00276FAA /* UIColor+DNSDynamic.m */; };
 		E190FA482154984400F30C24 /* DNSPageView_ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = E190FA462154984400F30C24 /* DNSPageView_ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E190FA5A21549AAC00F30C24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA5921549AAC00F30C24 /* AppDelegate.m */; };
 		E190FA5D21549AAC00F30C24 /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = E190FA5C21549AAC00F30C24 /* ViewController1.m */; };
@@ -101,8 +103,8 @@
 		E100DDAF215B2C9B008EE5CD /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		E100DDBB215B457B008EE5CD /* ContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		E100DDBC215B457B008EE5CD /* ContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
-		E100DDBE215B6DAF008EE5CD /* UIColor+RGB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGB.h"; sourceTree = "<group>"; };
-		E100DDBF215B6DAF008EE5CD /* UIColor+RGB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGB.m"; sourceTree = "<group>"; };
+		E100DDBE215B6DAF008EE5CD /* UIColor+DNSRGB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DNSRGB.h"; sourceTree = "<group>"; };
+		E100DDBF215B6DAF008EE5CD /* UIColor+DNSRGB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DNSRGB.m"; sourceTree = "<group>"; };
 		E100DDC2215B903A008EE5CD /* DNSPageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageDelegate.h; sourceTree = "<group>"; };
 		E100DDC4215B9440008EE5CD /* UIColor+Random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
 		E100DDC5215B9440008EE5CD /* UIColor+Random.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
@@ -110,6 +112,8 @@
 		E14FD51D21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		E14FD52021592D3100F63B9A /* DNSPageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageContentView.h; sourceTree = "<group>"; };
 		E14FD52121592D3100F63B9A /* DNSPageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DNSPageContentView.m; sourceTree = "<group>"; };
+		E17F00FA249879BB00276FAA /* UIColor+DNSDynamic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DNSDynamic.h"; sourceTree = "<group>"; };
+		E17F00FB249879BB00276FAA /* UIColor+DNSDynamic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DNSDynamic.m"; sourceTree = "<group>"; };
 		E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DNSPageView_ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E190FA462154984400F30C24 /* DNSPageView_ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DNSPageView_ObjC.h; sourceTree = "<group>"; };
 		E190FA472154984400F30C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -227,8 +231,10 @@
 				E1D7E0CF215A2150009565BE /* DNSPageView.m */,
 				E1D7E0D2215A2D25009565BE /* DNSPageViewManager.h */,
 				E1D7E0D3215A2D25009565BE /* DNSPageViewManager.m */,
-				E100DDBE215B6DAF008EE5CD /* UIColor+RGB.h */,
-				E100DDBF215B6DAF008EE5CD /* UIColor+RGB.m */,
+				E100DDBE215B6DAF008EE5CD /* UIColor+DNSRGB.h */,
+				E100DDBF215B6DAF008EE5CD /* UIColor+DNSRGB.m */,
+				E17F00FA249879BB00276FAA /* UIColor+DNSDynamic.h */,
+				E17F00FB249879BB00276FAA /* UIColor+DNSDynamic.m */,
 				E190FA472154984400F30C24 /* Info.plist */,
 			);
 			path = "DNSPageView-ObjC";
@@ -271,10 +277,11 @@
 				E1D7E0D0215A2150009565BE /* DNSPageView.h in Headers */,
 				E100DDC3215B903A008EE5CD /* DNSPageDelegate.h in Headers */,
 				E14FD51E21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.h in Headers */,
+				E17F00FC249879BB00276FAA /* UIColor+DNSDynamic.h in Headers */,
 				E190FA6E21549B0700F30C24 /* DNSPageTitleView.h in Headers */,
 				E1D7E0E7215A406C009565BE /* DNSPageStyle.h in Headers */,
 				E14FD52221592D3100F63B9A /* DNSPageContentView.h in Headers */,
-				E100DDC0215B6DAF008EE5CD /* UIColor+RGB.h in Headers */,
+				E100DDC0215B6DAF008EE5CD /* UIColor+DNSRGB.h in Headers */,
 				E1D7E0D4215A2D25009565BE /* DNSPageViewManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,9 +388,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D7E0E6215A406C009565BE /* DNSPageStyle.m in Sources */,
+				E17F00FD249879BB00276FAA /* UIColor+DNSDynamic.m in Sources */,
 				E190FA6F21549B0700F30C24 /* DNSPageTitleView.m in Sources */,
 				E1D7E0D1215A2150009565BE /* DNSPageView.m in Sources */,
-				E100DDC1215B6DAF008EE5CD /* UIColor+RGB.m in Sources */,
+				E100DDC1215B6DAF008EE5CD /* UIColor+DNSRGB.m in Sources */,
 				E14FD51F21592CBF00F63B9A /* DNSPageCollectionViewFlowLayout.m in Sources */,
 				E14FD52321592D3100F63B9A /* DNSPageContentView.m in Sources */,
 				E1D7E0D5215A2D25009565BE /* DNSPageViewManager.m in Sources */,
@@ -581,6 +589,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daniels.DNSPageView-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -607,6 +616,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daniels.DNSPageView-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

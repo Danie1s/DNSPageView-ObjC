@@ -24,11 +24,11 @@
 //  THE SOFTWARE.
 //
 
-#import "UIColor+RGB.h"
+#import "UIColor+DNSRGB.h"
 
 @implementation UIColor (RGB)
 
-- (RGBColorSpace)getRGBColorSpace {
+- (RGBColorSpace)dns_getRGBColorSpace {
     CGFloat red = 0;
     CGFloat green = 0;
     CGFloat blue = 0;
@@ -38,6 +38,10 @@
     rgb.green = green * 255;
     rgb.blue = blue * 255;
     return rgb;
+}
+
++ (instancetype)dns_colorWithRGBColorSpace:(RGBColorSpace)rgb {
+    return [self colorWithRed:rgb.red / 255 green:rgb.green / 255 blue:rgb.blue / 255 alpha:1.0];
 }
 
 @end

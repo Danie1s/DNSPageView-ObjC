@@ -36,9 +36,10 @@
         self.titleSelectedColor = [UIColor blueColor];
         self.titleFont = [UIFont systemFontOfSize:15];
         self.titleViewBackgroundColor = [UIColor whiteColor];
-        self.titleMargin = 30;
         self.titleViewSelectedColor = [UIColor clearColor];
-        
+        self.titleMargin = 30;
+        self.titleInset = 0;
+
         self.titleViewScrollEnabled = NO;
         
         self.showBottomLine = NO;

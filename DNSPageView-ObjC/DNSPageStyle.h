@@ -38,9 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *titleColor;
 @property (nonatomic, strong) UIColor *titleSelectedColor;
 @property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIFont *titleSelectedFont;
 @property (nonatomic, strong) UIColor *titleViewBackgroundColor;
-@property (nonatomic, assign) CGFloat titleMargin;
 @property (nonatomic, strong) UIColor *titleViewSelectedColor;
+@property (nonatomic, assign) CGFloat titleMargin;
+@property (nonatomic, assign) CGFloat titleInset;
 
 /**
  titleView滑动

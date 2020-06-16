@@ -31,11 +31,16 @@
     if (!_pageViewManager) {
         // 创建DNSPageStyle，设置样式
         DNSPageStyle *style = [[DNSPageStyle alloc] init];
-        style.titleViewBackgroundColor = [UIColor clearColor];
-        style.titleColor = [UIColor grayColor];
-        style.titleSelectedColor = [UIColor blackColor];
-        style.titleViewScrollEnabled = YES;
         style.showBottomLine = YES;
+        style.titleViewScrollEnabled = YES;
+        style.titleViewBackgroundColor = [UIColor clearColor];
+        if (@available(iOS 13.0, *)) {
+            style.titleSelectedColor = [UIColor dns_dynamicColorWithLightColor:[UIColor redColor] darkColor:[UIColor blueColor]];
+            style.titleColor = [UIColor dns_dynamicColorWithLightColor:[UIColor greenColor] darkColor:[UIColor orangeColor]];
+        } else {
+            style.titleSelectedColor = [UIColor blackColor];
+            style.titleColor = [UIColor grayColor];
+        }
         style.bottomLineColor = [UIColor colorWithRed:0 / 255.0 green:143 / 255.0 blue:223 / 255.0 alpha:1.0];
         style.bottomLineWidth = 20;
 

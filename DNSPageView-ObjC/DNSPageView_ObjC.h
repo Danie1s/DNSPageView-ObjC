@@ -38,3 +38,4 @@ FOUNDATION_EXPORT const unsigned char DNSPageView_ObjCVersionString[];
 #import "DNSPageView.h"
 #import "DNSPageViewManager.h"
 #import "DNSPageDelegate.h"
+#import "UIColor+DNSDynamic.h"

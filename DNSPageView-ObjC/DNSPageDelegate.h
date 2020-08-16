@@ -30,27 +30,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DNSPageTitleView, DNSPageContentView;
 
-/**
- DNSPageView的事件回调，如果有需要，请让对应的childViewController遵守这个协议
- */
+
+/// DNSPageView 的事件回调，如果有需要，请让对应的 childViewController 遵守这个协议
 @protocol DNSPageEventHandlerDelegate <NSObject>
 @optional
 
 
-/**
- 重复点击pageTitleView后调用
- */
+
+/// 重复点击 pageTitleView 后调用
 - (void)titleViewDidSelectSameTitle;
 
 
-/**
- pageContentView的上一页消失的时候，上一页对应的controller调用
- */
+/// pageContentView 的上一页消失的时候，上一页对应的 controller 调用
 - (void)contentViewDidDisappear;
 
-/**
- pageContentView滚动停止的时候，当前页对应的controller调用
- */
+/// pageContentView 滚动停止的时候，当前页对应的 controller 调用
 - (void)contentViewDidEndScroll;
 
 @end
@@ -68,7 +62,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)contentView:(DNSPageContentView *)contentView didEndScrollAtIndex:(NSInteger)index;
 
-- (void)contentView:(DNSPageContentView *)contentView scrollingWithSourceIndex:(NSInteger)sourceIndex targetIndex:(NSInteger)targetIndex progress:(CGFloat)progress;
+- (void)contentView:(DNSPageContentView *)contentView
+scrollingWithSourceIndex:(NSInteger)sourceIndex
+        targetIndex:(NSInteger)targetIndex
+           progress:(CGFloat)progress;
+
+@end
+
+@protocol DNSPageViewContainer <NSObject>
+
+- (void)updateCurrentIndex:(NSInteger)index;
 
 @end
 

@@ -25,7 +25,7 @@
 
 - (DNSPageViewManager *)pageViewManager {
     if (!_pageViewManager) {
-        // 创建DNSPageStyle，设置样式
+        // 创建 DNSPageStyle，设置样式
         DNSPageStyle *style = [[DNSPageStyle alloc] init];
         style.showBottomLine = YES;
         style.titleViewScrollEnabled = YES;
@@ -34,14 +34,16 @@
         // 设置标题内容
         NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育"];
         
-        // 创建每一页对应的controller
+        // 创建每一页对应的 controller
         for (int i = 0; i < titles.count; i++) {
             ContentViewController *controller = [[ContentViewController alloc] init];
             controller.view.backgroundColor = [UIColor randomColor];
             controller.index = i;
             [self addChildViewController:controller];
         }
-        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
+        _pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style
+                                                              titles:titles
+                                                childViewControllers:self.childViewControllers];
     }
     return _pageViewManager;
 }
@@ -49,11 +51,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 单独设置titleView的frame
+    // 单独设置 titleView 的 frame
     self.navigationItem.titleView = self.pageViewManager.titleView;
     self.pageViewManager.titleView.frame = CGRectMake(0, 0, 180, 44);
     
-    // 单独设置contentView的大小和位置，可以使用autolayout或者frame
+    // 单独设置 contentView 的大小和位置，可以使用 autolayout 或者 frame
     DNSPageContentView *contentView = self.pageViewManager.contentView;
     [self.view addSubview:contentView];
     [contentView makeConstraints:^(MASConstraintMaker *make) {

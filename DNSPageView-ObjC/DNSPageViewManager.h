@@ -26,17 +26,16 @@
 
 #import <Foundation/Foundation.h>
 #import "DNSPageStyle.h"
+#import "DNSPageDelegate.h"
 
 @class DNSPageTitleView, DNSPageContentView;
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-/**
- 通过这个类创建的pageView，titleView和contentView的frame是不确定的，适合于titleView和contentView分开布局的情况
- 需要给titleView和contentView布局，可以用frame或者Autolayout布局
- */
-@interface DNSPageViewManager : NSObject
+/// 通过这个类创建的 pageView，titleView 和 contentView 的 frame 是不确定的，适合于 titleView 和 contentView 分开布局的情况
+/// 需要给 titleView 和 contentView 布局，可以使用 frame 或者 Autolayout
+@interface DNSPageViewManager : NSObject <DNSPageViewContainer>
 
 @property (nonatomic, strong, readonly) DNSPageStyle *style;
 
@@ -44,13 +43,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSArray<UIViewController *> *childViewControllers;
 
-@property (nonatomic, assign, readonly) NSInteger startIndex;
+@property (nonatomic, assign, readonly) NSInteger currentIndex;
 
 @property (nonatomic, strong, readonly) DNSPageTitleView *titleView;
 
 @property (nonatomic, strong, readonly) DNSPageContentView *contentView;
 
-- (instancetype)initWithStyle:(DNSPageStyle *)style titles:(NSArray<NSString *> *)titles childViewControllers:(NSArray<UIViewController *> *)childViewControllers startIndex:(NSInteger)startIndex;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithStyle:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                 currentIndex:(NSInteger)currentIndex
+                    titleView:(nullable DNSPageTitleView *)titleView
+                  contentView:(nullable DNSPageContentView *)contentView NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithStyle:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                 currentIndex:(NSInteger)currentIndex;
+
+- (instancetype)initWithStyle:(DNSPageStyle *)style
+              titles:(NSArray<NSString *> *)titles
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers;
+
+- (void)configureWithTitles:(nullable NSArray<NSString *> *)titles
+       childViewControllers:(nullable NSArray<UIViewController *> *)childViewControllers
+                      style:(nullable DNSPageStyle *)style;
 
 @end
 

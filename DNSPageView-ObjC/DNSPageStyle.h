@@ -31,42 +31,32 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DNSPageStyle : NSObject
 
 
-/**
- titleView
- */
+/// titleView
 @property (nonatomic, assign) CGFloat titleViewHeight;
 @property (nonatomic, strong) UIColor *titleColor;
 @property (nonatomic, strong) UIColor *titleSelectedColor;
 @property (nonatomic, strong) UIFont *titleFont;
-@property (nonatomic, strong) UIFont *titleSelectedFont;
+@property (nullable, nonatomic, strong) UIFont *titleSelectedFont;
 @property (nonatomic, strong) UIColor *titleViewBackgroundColor;
 @property (nonatomic, strong) UIColor *titleViewSelectedColor;
 @property (nonatomic, assign) CGFloat titleMargin;
 @property (nonatomic, assign) CGFloat titleInset;
 
-/**
- titleView滑动
- */
+/// titleView 滑动
 @property (nonatomic, assign, getter=isTitleViewScrollEnabled) BOOL titleViewScrollEnabled;
 
-/**
- title下划线
- */
+/// title 下划线
 @property (nonatomic, assign, getter=isShowBottomLine) BOOL showBottomLine;
 @property (nonatomic, strong) UIColor *bottomLineColor;
 @property (nonatomic, assign) CGFloat bottomLineWidth;
 @property (nonatomic, assign) CGFloat bottomLineHeight;
 @property (nonatomic, assign) CGFloat bottomLineRadius;
 
-/**
- title缩放
- */
+/// title 缩放
 @property (nonatomic, assign, getter=isTitleScaleEnabled) BOOL titleScaleEnabled;
 @property (nonatomic, assign) CGFloat titleMaximumScaleFactor;
 
-/**
- title遮罩
- */
+/// title 遮罩
 @property (nonatomic, assign, getter=isShowCoverView) BOOL showCoverView;
 @property (nonatomic, strong) UIColor *coverViewBackgroundColor;
 @property (nonatomic, assign) CGFloat coverViewAlpha;
@@ -74,9 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat coverViewHeight;
 @property (nonatomic, assign) CGFloat coverViewRadius;
 
-/**
- contentView
- */
+/// contentView
 @property (nonatomic, assign, getter=isContentScrollEnabled) BOOL contentScrollEnabled;
 @property (nonatomic, strong) UIColor *contentViewBackgroundColor;
 

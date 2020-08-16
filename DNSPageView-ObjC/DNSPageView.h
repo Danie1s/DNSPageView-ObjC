@@ -26,16 +26,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DNSPageStyle.h"
+#import "DNSPageDelegate.h"
 
 @class DNSPageTitleView, DNSPageContentView;
 NS_ASSUME_NONNULL_BEGIN
 
-
-/**
- 通过这个类创建的pageView，默认titleView和contentView连在一起，效果类似于网易新闻
- 只能用代码创建，不能在xib或者storyboard里面使用
- */
-@interface DNSPageView : UIView
+/// 通过这个类创建的 pageView，默认 titleView 和 contentView 连在一起，效果类似于网易新闻
+/// 只能用代码创建，不能在 xib 或者 storyboard 里面使用
+@interface DNSPageView : UIView <DNSPageViewContainer>
 
 @property (nonatomic, strong, readonly) DNSPageStyle *style;
 
@@ -43,13 +41,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSArray<UIViewController *> *childViewControllers;
 
-@property (nonatomic, assign, readonly) NSInteger startIndex;
+@property (nonatomic, assign, readonly) NSInteger currentIndex;
 
 @property (nonatomic, strong, readonly) DNSPageTitleView *titleView;
 
 @property (nonatomic, strong, readonly) DNSPageContentView *contentView;
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style titles:(NSArray<NSString *> *)titles childViewControllers:(NSArray<UIViewController *> *)childViewControllers startIndex:(NSInteger)startIndex;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
+- (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                 currentIndex:(NSInteger)currentIndex NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers;
+
+
+- (void)configureWithTitles:(nullable NSArray<NSString *> *)titles
+       childViewControllers:(nullable NSArray<UIViewController *> *)childViewControllers
+                      style:(nullable DNSPageStyle *)style;
 
 @end
 

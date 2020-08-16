@@ -47,7 +47,7 @@
 //    NSLog(@"viewDidAppear，index: %ld", self.index);
 }
 
-// pop或者cell复用的时候调用
+// pop 或者 cell 复用的时候调用
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 //    NSLog(@"viewDidDisappear，index: %ld", self.index);
@@ -67,6 +67,7 @@
 
 }
 
+// 当前 controller 滑动结束的时候调用
 - (void)contentViewDidEndScroll {
     NSLog(@"contentView滑动结束，index: %ld", self.index);
 }

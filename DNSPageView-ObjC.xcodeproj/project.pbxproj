@@ -48,6 +48,7 @@
 		E1D7E0E7215A406C009565BE /* DNSPageStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D7E0E5215A406C009565BE /* DNSPageStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1D7E0E8215A40A4009565BE /* DNSPageView_ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */; };
 		E1D7E0E9215A40A4009565BE /* DNSPageView_ObjC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E190FA432154984400F30C24 /* DNSPageView_ObjC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1EBF41C24E96AC400697485 /* ViewController5.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EBF41B24E96AC400697485 /* ViewController5.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,8 @@
 		E1D7E0DD215A30AD009565BE /* ViewController4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController4.m; sourceTree = "<group>"; };
 		E1D7E0E4215A406C009565BE /* DNSPageStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSPageStyle.m; sourceTree = "<group>"; };
 		E1D7E0E5215A406C009565BE /* DNSPageStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSPageStyle.h; sourceTree = "<group>"; };
+		E1EBF41A24E96AC400697485 /* ViewController5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController5.h; sourceTree = "<group>"; };
+		E1EBF41B24E96AC400697485 /* ViewController5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController5.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +258,8 @@
 				E1D7E0DA215A30A0009565BE /* ViewController3.m */,
 				E1D7E0DC215A30AD009565BE /* ViewController4.h */,
 				E1D7E0DD215A30AD009565BE /* ViewController4.m */,
+				E1EBF41A24E96AC400697485 /* ViewController5.h */,
+				E1EBF41B24E96AC400697485 /* ViewController5.m */,
 				E100DDBB215B457B008EE5CD /* ContentViewController.h */,
 				E100DDBC215B457B008EE5CD /* ContentViewController.m */,
 				E190FA5E21549AAD00F30C24 /* Main.storyboard */,
@@ -420,6 +425,7 @@
 				E100DDBD215B457B008EE5CD /* ContentViewController.m in Sources */,
 				E1D7E0DB215A30A0009565BE /* ViewController3.m in Sources */,
 				E1D7E0DE215A30AD009565BE /* ViewController4.m in Sources */,
+				E1EBF41C24E96AC400697485 /* ViewController5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +595,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daniels.DNSPageView-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -616,7 +622,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.daniels.DNSPageView-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

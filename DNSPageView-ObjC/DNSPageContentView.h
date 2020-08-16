@@ -35,19 +35,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, weak) id<DNSPageContentViewDelegate> delegate;
 
+@property (nullable, nonatomic, weak) id<DNSPageViewContainer> container;
+
 @property (nullable, nonatomic, weak) id<DNSPageEventHandlerDelegate> eventHandler;
 
-@property (nonatomic, strong) DNSPageStyle *style;
+@property (nonatomic, strong, readonly) DNSPageStyle *style;
 
-@property (nonatomic, strong) NSArray<UIViewController *> *childViewControllers;
+@property (nonatomic, strong, readonly) NSArray<UIViewController *> *childViewControllers;
 
-@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign, readonly) NSInteger currentIndex;
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers currentIndex:(NSInteger)currentIndex;
+- (instancetype)init NS_UNAVAILABLE;
 
-- (void)setupUI;
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                 currentIndex:(NSInteger)currentIndex NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers;
+
+- (void)configureWithChildViewControllers:(nullable NSArray<UIViewController *> *)childViewControllers
+                                    style:(nullable DNSPageStyle *)style
+                             currentIndex:(NSInteger)currentIndex;
+
+- (void)configureWithChildViewControllers:(nullable NSArray<UIViewController *> *)childViewControllers
+                                    style:(nullable DNSPageStyle *)style;
 
 @end
 

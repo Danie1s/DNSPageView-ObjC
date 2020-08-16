@@ -37,31 +37,51 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
 @property (nullable, nonatomic, weak) id<DNSPageTitleViewDelegate> delegate;
 
-/**
- 点击标题时调用
- */
+@property (nullable, nonatomic, weak) id<DNSPageViewContainer> container;
+
+/// 点击标题时调用
 @property (nullable, nonatomic, copy) TitleClickHandler clickHandler;
 
-@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign, readonly) NSInteger currentIndex;
 
 @property (nonatomic, strong, readonly) NSArray<UILabel *> *titleLabels;
 
-@property (nonatomic, strong) DNSPageStyle *style;
+@property (nonatomic, strong, readonly) DNSPageStyle *style;
 
-@property (nonatomic, strong) NSArray<NSString *> *titles;
+@property (nonatomic, strong, readonly) NSArray<NSString *> *titles;
 
 @property (nonatomic, strong, readonly) UIView *coverView;
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style titles:(NSArray<NSString *> *)titles currentIndex:(NSInteger)currentIndex;
+- (instancetype)init NS_UNAVAILABLE;
 
-- (void)setupUI;
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles
+                 currentIndex:(NSInteger)currentIndex NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+                       titles:(NSArray<NSString *> *)titles;
+
+- (void)configureWithTitles:(nullable NSArray<NSString *> *)titles
+                      style:(nullable DNSPageStyle *)style
+               currentIndex:(NSInteger)currentIndex;
+
+- (void)configureWithTitles:(nullable NSArray<NSString *> *)titles
+                      style:(nullable DNSPageStyle *)style;
 
 
-/**
- 通过代码实现点了某个位置的titleView
 
- @param index 需要点击的titleView的下标
- */
+/// 通过代码实现点了某个位置的 titleView
+/// @param index 需要点击的 titleView 的下标
+/// @param animated 是否需要动画
+- (void)selectedTitleAtIndex:(NSInteger)index animated:(BOOL)animated;
+
+
 - (void)selectedTitleAtIndex:(NSInteger)index;
 
 @end

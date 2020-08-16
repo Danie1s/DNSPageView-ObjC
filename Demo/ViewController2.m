@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet DNSPageContentView *contentView;
 
+@property (nonatomic, strong) DNSPageViewManager *pageViewManager;
+
 @end
 
 @implementation ViewController2
@@ -38,17 +40,10 @@
     NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育"];
     
     // 设置默认的起始位置
-    NSInteger startIndex = 2;
+    NSInteger currentIndex = 2;
     
-    // 对titleView进行设置
-    self.titleView.titles = titles;
-    self.titleView.style = style;
-    self.titleView.currentIndex = startIndex;
     
-    // 最后要调用setupUI方法
-    [self.titleView setupUI];
-    
-    // 创建每一页对应的controller
+    // 创建每一页对应的 controller
     for (int i = 0; i < titles.count; i++) {
         ContentViewController *controller = [[ContentViewController alloc] init];
         controller.view.backgroundColor = [UIColor randomColor];
@@ -56,17 +51,12 @@
         [self addChildViewController:controller];
     }
     
-    // 对contentView进行设置
-    self.contentView.childViewControllers = self.childViewControllers;
-    self.contentView.currentIndex = startIndex;
-    self.contentView.style = style;
-    
-    // 最后要调用setupUI方法
-    [self.contentView setupUI];
-    
-    // 让titleView和contentView进行联系起来
-    self.titleView.delegate = self.contentView;
-    self.contentView.delegate = self.titleView;
+    self.pageViewManager = [[DNSPageViewManager alloc] initWithStyle:style
+                                                         titles:titles
+                                           childViewControllers:self.childViewControllers
+                                                   currentIndex:currentIndex
+                                                      titleView:self.titleView
+                                                    contentView:self.contentView];
 }
 
 

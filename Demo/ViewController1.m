@@ -25,7 +25,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    // 创建DNSPageStyle，设置样式
+    // 创建 DNSPageStyle，设置样式
     DNSPageStyle *style = [[DNSPageStyle alloc] init];
     style.titleViewScrollEnabled = YES;
     style.titleMargin = 10;
@@ -34,9 +34,9 @@
 //    style.titleScaleEnabled = YES;
     
     // 设置标题内容
-    NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育" , @"科技" , @"汽车" , @"时尚" , @"图片" , @"游戏" , @"房产"];
+    NSArray <NSString *>*titles = @[@"头条", @"视频", @"娱乐", @"要问", @"体育", @"科技", @"汽车", @"时尚", @"图片", @"游戏", @"房产"];
     
-    // 创建每一页对应的controller
+    // 创建每一页对应的 controller
     for (int i = 0; i < titles.count; i++) {
         ContentViewController *controller = [[ContentViewController alloc] init];
         controller.view.backgroundColor = [UIColor randomColor];
@@ -47,8 +47,12 @@
     CGFloat y = [UIApplication sharedApplication].statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
     CGSize size = [UIScreen mainScreen].bounds.size;
     
-    // 创建对应的DNSPageView，并设置它的frame
-    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height - y) style:style titles:titles childViewControllers:self.childViewControllers startIndex:0];
+    // 创建对应的 DNSPageView，并设置它的 frame
+    DNSPageView *pageView = [[DNSPageView alloc] initWithFrame:CGRectMake(0, y, size.width, size.height - y)
+                                                         style:style
+                                                        titles:titles
+                                          childViewControllers:self.childViewControllers
+                                                  currentIndex:7];
     [self.view addSubview:pageView];
 }
 

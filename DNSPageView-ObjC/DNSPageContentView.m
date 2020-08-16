@@ -35,6 +35,12 @@
 
 @property (nonatomic, assign, getter=isForbidDelegate) BOOL forbidDelegate;
 
+@property (nonatomic, strong) DNSPageStyle *style;
+
+@property (nonatomic, strong,) NSArray<UIViewController *> *childViewControllers;
+
+@property (nonatomic, assign) NSInteger currentIndex;
+
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
@@ -65,34 +71,87 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     return _collectionView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame style:(DNSPageStyle *)style childViewControllers:(NSArray<UIViewController *> *)childViewControllers currentIndex:(NSInteger)currentIndex {
+- (DNSPageStyle *)style {
+    if (!_style) {
+        _style = [[DNSPageStyle alloc] init];
+    }
+    return _style;
+}
+
+- (NSArray<UIViewController *> *)childViewControllers {
+    if (!_childViewControllers) {
+        _childViewControllers = [NSArray array];
+    }
+    return _childViewControllers;
+}
+
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    _currentIndex = currentIndex;
+    if (!self.delegate && [self.container respondsToSelector:@selector(updateCurrentIndex:)]) {
+        [self.container updateCurrentIndex:currentIndex];
+    }
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                 currentIndex:(NSInteger)currentIndex {
+    NSParameterAssert(currentIndex >= 0 && currentIndex < childViewControllers.count);
     self = [super initWithFrame:frame];
     if (self) {
-        self.childViewControllers = childViewControllers;
-        self.style = style;
-        self.currentIndex = currentIndex;
-        [self setupUI];
+        [self addSubview:self.collectionView];
+        [self configureWithChildViewControllers:childViewControllers style:style currentIndex:currentIndex];
     }
     return self;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.childViewControllers = [NSArray array];
-    self.style = [[DNSPageStyle alloc] init];
+- (instancetype)initWithFrame:(CGRect)frame
+                        style:(DNSPageStyle *)style
+         childViewControllers:(NSArray<UIViewController *> *)childViewControllers {
+    return [self initWithFrame:frame style:style childViewControllers:childViewControllers currentIndex:0];
 }
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self addSubview:self.collectionView];
+    }
+    return self;
+}
+
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.collectionView.frame = self.bounds;
+    self.collectionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     DNSPageCollectionViewFlowLayout *layout = (DNSPageCollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.itemSize = self.bounds.size;
-    layout.offset = self.currentIndex * self.bounds.size.width;
+    layout.itemSize = self.frame.size;
+    layout.offset = self.currentIndex * self.frame.size.width;
 }
 
-- (void)setupUI {
-    [self addSubview:self.collectionView];
+- (void)configureWithChildViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                                    style:(DNSPageStyle *)style
+                             currentIndex:(NSInteger)currentIndex {
+    if (childViewControllers) {
+        self.childViewControllers = childViewControllers;
+    }
+    if (style) {
+        self.style = style;
+    }
+    if (currentIndex >= 0) {
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        self.currentIndex = currentIndex;
+    }
+    [self configureSubViews];
+    [self.collectionView reloadData];
+    [self setNeedsLayout];
+}
 
+- (void)configureWithChildViewControllers:(NSArray<UIViewController *> *)childViewControllers
+                                    style:(DNSPageStyle *)style {
+    [self configureWithChildViewControllers:childViewControllers style:style currentIndex:-1];
+}
+
+- (void)configureSubViews {
     self.collectionView.backgroundColor = self.style.contentViewBackgroundColor;
     self.collectionView.scrollEnabled = self.style.isContentScrollEnabled;
 }
@@ -112,7 +171,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     if ([childViewController conformsToProtocol:@protocol(DNSPageEventHandlerDelegate)]) {
         self.eventHandler = (UIViewController<DNSPageEventHandlerDelegate> *)childViewController;
     }
-    childViewController.view.frame = cell.contentView.bounds;
+    childViewController.view.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
     [cell.contentView addSubview:childViewController.view];
 
     return cell;
@@ -139,7 +198,7 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 
 - (void)collectionViewDidEndScroll:(UIScrollView *)scrollView {
-    NSInteger index = (NSInteger)round(scrollView.contentOffset.x / scrollView.bounds.size.width);
+    NSInteger index = (NSInteger)round(scrollView.contentOffset.x / scrollView.frame.size.width);
 
     if ([self.delegate respondsToSelector:@selector(contentView:didEndScrollAtIndex:)]) {
         [self.delegate contentView:self didEndScrollAtIndex:index];
@@ -175,12 +234,12 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     CGFloat progress = 0;
     NSInteger targetIndex = 0;
     NSInteger sourceIndex = 0;
-    progress = (NSInteger)scrollView.contentOffset.x % (NSInteger)scrollView.bounds.size.width / scrollView.bounds.size.width;
+    progress = (NSInteger)scrollView.contentOffset.x % (NSInteger)scrollView.frame.size.width / scrollView.frame.size.width;
     if (progress == 0  || isnan(progress)) {
         return;
     }
 
-    NSInteger index = (NSInteger)(scrollView.contentOffset.x / scrollView.bounds.size.width);
+    NSInteger index = (NSInteger)(scrollView.contentOffset.x / scrollView.frame.size.width);
 
     if (self.collectionView.contentOffset.x > self.startOffsetX) {
         sourceIndex = index;

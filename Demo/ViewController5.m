@@ -106,10 +106,21 @@
 - (void)changeStyle {
     [self changeTitle];
     
+//    [self changeTitles];
+    
 //    [self changeAll];
 }
 
 - (void)changeTitle {
+    if (!self.isChanged) {
+        [self.pageViewManager.titleView updateTitle:@"JavaScript" atIndex:3];
+    } else {
+        [self.pageViewManager.titleView updateTitle:@"王者荣耀" atIndex:3];
+    }
+    self.changed = !self.isChanged;
+}
+
+- (void)changeTitles {
     if (!self.isChanged) {
         NSArray <NSString *>*titles = @[@"Swift", @"Objective-C", @"JavaScript", @"Python", @"C++", @"Go"];
         [self.pageViewManager configureWithTitles:titles childViewControllers:nil style:nil];

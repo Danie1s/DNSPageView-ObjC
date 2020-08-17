@@ -84,6 +84,8 @@ typedef void (^TitleClickHandler)(DNSPageTitleView *titleView, NSInteger current
 
 - (void)selectedTitleAtIndex:(NSInteger)index;
 
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index;
+
 @end
 
 

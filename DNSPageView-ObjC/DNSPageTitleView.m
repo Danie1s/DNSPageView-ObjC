@@ -334,7 +334,8 @@
 
 - (void)selectedTitleAtIndex:(NSInteger)index animated:(BOOL)animated {
     if (index > self.titles.count || index < 0) {
-        NSLog(@"DNSPageTitleView -- selectedTitle: 数组越界了, index 的值超出有效范围");
+        NSLog(@"DNSPageTitleView -- selectedTitleAtIndex:animated: 数组越界了, index 的值超出有效范围");
+        return;
     }
 
     if (self.clickHandler) {
@@ -409,6 +410,18 @@
 
     sourceLabel.backgroundColor = [UIColor clearColor];
     targetLabel.backgroundColor = self.style.titleViewSelectedColor;
+}
+
+- (void)updateTitle:(NSString *)title atIndex:(NSInteger)index {
+    if (index > self.titles.count || index < 0) {
+        NSLog(@"DNSPageTitleView -- updateTitle:atIndex: 数组越界了, index 的值超出有效范围");
+        return;
+    }
+    NSMutableArray<NSString *> *titles = [NSMutableArray arrayWithArray:self.titles];
+    titles[index] = title;
+    self.titles = titles;
+    self.titleLabels[index].text = title;
+    [self setNeedsLayout];
 }
 
 
